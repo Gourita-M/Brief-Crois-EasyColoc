@@ -1,0 +1,1 @@
+EasyColoc is a web application for managing shared accommodation that allows you to track common expenses and automatically distribute debts between members. The goal is to avoid manual calculations and have a clear overview of "who owes what to whom".# Brief-Crois-EasyColoc
