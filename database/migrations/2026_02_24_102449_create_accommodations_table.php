@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('accommodations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('adress');
             $table->string('status');
+            $table->string('local_token');
             $table->foreignId('persons_id')
             ->constrained()->cascadeOnDelete();
             $table->timestamps();

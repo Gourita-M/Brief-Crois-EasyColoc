@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('role');
             $table->integer('is_active');
-             $table->timestamp('left_at');
+             $table->timestamp('left_at')->nullable();;
             $table->foreignId('persons_id')
             ->constrained()->cascadeOnDelete();
             $table->foreignId('accommodations_id')

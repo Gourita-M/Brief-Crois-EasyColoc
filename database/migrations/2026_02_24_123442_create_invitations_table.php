@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tookens', function (Blueprint $table) {
+        Schema::create('invitations', function (Blueprint $table) {
             $table->id();
             $table->string('email');
+            $table->string('token');
             $table->boolean('is_active');
             $table->foreignId('accommodations_id')
             ->constrained()->cascadeOnDelete();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tookens');
+        Schema::dropIfExists('invitations');
     }
 };
