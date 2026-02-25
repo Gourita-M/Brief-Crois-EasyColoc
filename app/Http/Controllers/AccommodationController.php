@@ -27,7 +27,7 @@ class AccommodationController extends Controller
                                                 ->where('status', 'Active')->exists();
 
         if($Accommodationexists){
-            return Redirect('/Accommodation')->with('message', 'You already Have An Accommodation.');
+            return Redirect('/Accommodation')->with('failure', 'You already Have a Home.');
         }
 
         $Accommodation = Accommodations::create([
@@ -46,6 +46,28 @@ class AccommodationController extends Controller
             'persons_id' => $person->id,
         ]);
 
-        return Redirect('/Accommodation')->with('message', 'You Have Successfully Created a New Home');
+        return Redirect('/Accommodation')->with('success', 'You Have Successfully Created a New Home');
+    }
+
+    public function joinAccommodation(Request $request)
+    {
+
+        $person = Persons::where('users_id', auth::user()->id)->first();
+
+        $token = $request->validate([
+            'token' => 'string|min:30|required'
+        ]);
+
+        $Accommodation = Accommodations::Where('local_token', $token)
+                                        ->first();
+        Memberships::create([
+            'role' => 'Member',
+            'is_active' => 1,
+            'left_at' => null ,
+            'accommodations_id' => $Accommodation->id,
+            'persons_id' => $person->id,
+        ]);
+
+         return Redirect('/Accommodation/user')->with('success', 'You Have Successfully Joined ');
     }
 }
