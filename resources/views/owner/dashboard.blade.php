@@ -1,5 +1,5 @@
 {{ auth()->user()->name}}
-<?php print_r($accommodation) ?>
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -78,7 +78,7 @@
 <body class="bg-gray-50 text-gray-900 antialiased">
 
     <!-- Top Navigation -->
-    <nav class="glass-effect fixed w-full z-50 border-b border-gray-200">
+    <nav class="glass-effect w-full z-50 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <!-- Logo - Links to Home -->
@@ -177,25 +177,67 @@
 
     <!-- Main Content -->
     <main class="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
-
-        <!-- Welcome Banner -->
-        <div class="gradient-bg rounded-2xl p-6 text-white relative overflow-hidden shadow-xl">
-            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-            <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold mb-1">Welcome to EasyColoc! 👋</h1>
-                    <p class="text-indigo-100">Start by creating your first shared home or join an existing one.</p>
-                </div>
-                <div class="flex gap-3">
-                    <button onclick="openModal('createColocModal')" class="px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-gray-50 transition shadow-lg">
-                        Create Home
-                    </button>
-                    <button onclick="openModal('joinModal')" class="px-5 py-2.5 bg-white/20 text-white border-2 border-white/30 rounded-xl font-semibold hover:bg-white/30 transition">
-                        Join
-                    </button>
-                </div>
-            </div>
+@if($accommodation)
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover mb-8">
+    <div class="flex justify-between items-start mb-4">
+        <div class="p-3 bg-blue-100 rounded-xl">
+            <i data-lucide="home" class="w-6 h-6 text-blue-600"></i>
         </div>
+        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            
+        </span>
+    </div>
+
+    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $accommodation->name }}</h3>
+    <p class="text-gray-500 mb-4">{{ $accommodation->adress }}</p>
+
+    <!-- 🔹 Local Token Area (ADDED) -->
+    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
+        <p class="text-sm text-gray-500 mb-2">Home Invitation Token</p>
+        <div class="flex items-center justify-between">
+            <span class="font-mono text-lg tracking-wider text-gray-900">
+                {{ $accommodation->local_token }}
+            </span>
+            <button 
+                onclick="navigator.clipboard.writeText('{{ $accommodation->token }}'); showToast('Token copied!')" 
+                class="px-3 py-1.5 text-sm bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                Copy
+            </button>
+        </div>
+    </div>
+    <!-- 🔹 END Token Area -->
+
+    <div class="flex gap-3">
+        <button onclick="openModal('joinModal')" 
+           class="px-4 py-2 bg-white text-primary-600 border border-primary-200 rounded-xl font-medium hover:bg-gray-50 transition">
+           Invite Member
+        </button>
+    </div>
+</div>
+@else
+<!-- Welcome Banner -->
+<div class="gradient-bg rounded-2xl p-6 text-white relative overflow-hidden shadow-xl">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h1 class="text-2xl font-bold mb-1">Welcome to EasyColoc! 👋</h1>
+            <p class="text-indigo-100">Start by creating your first shared home or join an existing one.</p>
+        </div>
+        <div class="flex gap-3">
+            <button onclick="openModal('createColocModal')" class="px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-gray-50 transition shadow-lg">
+                Create Home
+            </button>
+            <button onclick="openModal('joinModal')" class="px-5 py-2.5 bg-white/20 text-white border-2 border-white/30 rounded-xl font-semibold hover:bg-white/30 transition">
+                Join
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover mb-8 text-center">
+    <p class="text-gray-500">You have no active shared home. Create or join a home to see details here.</p>
+</div>
+@endif
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -209,10 +251,7 @@
                 </div>
                 <p class="text-sm text-gray-500 mb-1">My Reputation Score</p>
                 <p class="text-2xl font-bold text-gray-900">0</p>
-                <div class="mt-3 flex items-center text-xs text-gray-400">
-                    <i data-lucide="minus" class="w-3 h-3 mr-1"></i>
-                    No change
-                </div>
+                
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
@@ -224,26 +263,8 @@
                 </div>
                 <p class="text-sm text-gray-500 mb-1">Total Expenses</p>
                 <p class="text-2xl font-bold text-gray-900">$0.00</p>
-                <div class="mt-3 flex items-center text-xs text-gray-400">
-                    <i data-lucide="calendar" class="w-3 h-3 mr-1"></i>
-                    This month
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-green-100 rounded-xl">
-                        <i data-lucide="home" class="w-6 h-6 text-green-600"></i>
-                    </div>
-                    <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Active</span>
-                </div>
-                <p class="text-sm text-gray-500 mb-1">My Shared Homes</p>
-                <p class="text-2xl font-bold text-gray-900">0</p>
-                <div class="mt-3 flex items-center text-xs text-success-600">
-                    <i data-lucide="plus" class="w-3 h-3 mr-1"></i>
-                    Create your first!
-                </div>
-            </div>
+               
+</div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
                 <div class="flex items-center justify-between mb-4">
@@ -253,11 +274,8 @@
                     <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Total</span>
                 </div>
                 <p class="text-sm text-gray-500 mb-1">Active Members</p>
-                <p class="text-2xl font-bold text-gray-900">0</p>
-                <div class="mt-3 flex items-center text-xs text-gray-400">
-                    <i data-lucide="user-plus" class="w-3 h-3 mr-1"></i>
-                    Invite friends
-                </div>
+                <p class="text-2xl font-bold text-gray-900">{{$membershipscount}}</p>
+                
             </div>
 
         </div>
@@ -445,13 +463,17 @@
                     </button>
                 </div>
                 
-                <form class="p-6 space-y-6" onsubmit="event.preventDefault(); closeModal('joinModal'); showToast('You joined the shared home!');">
+                <form method="post" action="{{Route('join.home')}}" class="p-6 space-y-6" onsubmit=" closeModal('joinModal');">
+                    @csrf
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Invitation Token <span class="text-red-500">*</span></label>
-                        <input type="text" placeholder="XXXX-XXXX-XXXX" required maxlength="14"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition text-center font-mono text-lg tracking-wider uppercase"
-                            oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/(.{4})/g, '$1-').substring(0, 14).replace(/-$/, '')">
-                        <p class="text-xs text-gray-500 mt-2 text-center">Enter the 12-character code sent by email</p>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Invitation Token <span class="text-red-500">*</span>
+                        </label>
+                        <input name="token" type="text" placeholder="Enter token" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition text-center text-lg">
+                        <p class="text-xs text-gray-500 mt-2 text-center">
+                            Enter the 12-character code sent by email
+                        </p>
                     </div>
 
                     <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-100">
@@ -459,7 +481,7 @@
                             <i data-lucide="alert-circle" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5"></i>
                             <div class="text-sm text-yellow-800">
                                 <p class="font-medium mb-1">Important</p>
-                                <p>You can only join one active shared home at a time. Joining a new home will leave your current one.</p>
+                                <p>You can only join one active shared home at a time.</p>
                             </div>
                         </div>
                     </div>
@@ -561,9 +583,15 @@
         </div>
     </div>
 
-    @if(session('message'))
+    @if(session('success'))
     <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
-        ✅  {{session('message')}}
+         {{session('success')}}
+    </div>
+    @endif
+
+    @if(session('failure'))
+    <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
+         {{session('failure')}}
     </div>
     @endif
 

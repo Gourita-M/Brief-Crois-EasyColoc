@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
-            $table->string('role');
+            $table->string('role')->default('Member');
             $table->boolean('is_banned');
             $table->foreignId('users_id')
             ->constrained()->cascadeOnDelete();
+            $table->integer('reputation_score')->default(0);
             $table->timestamps();
         });
     }

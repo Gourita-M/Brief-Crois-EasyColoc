@@ -20,4 +20,8 @@ Route::middleware([
 
 Route::get('/Accommodation', [DashboardController::class, 'index'])->middleware('auth');
 
+Route::get('/Accommodation/user', [DashboardController::class, 'userIndex'])->middleware('auth');
+
 Route::post('/Create', [AccommodationController::class, 'create'])->name('Create.accommodation');
+
+Route::post('/Join', [AccommodationController::class, 'joinAccommodation'])->name('join.home');
