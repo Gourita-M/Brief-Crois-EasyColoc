@@ -9,6 +9,8 @@ class Accommodations extends Model
     protected $fillable = [
         'name',
         'status',
+        'adress',
         'persons_id',
+        'local_token',
     ];
 }
