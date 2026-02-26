@@ -120,7 +120,7 @@
                         <a href="Accommodation" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
                             Create My Shared Home
                         </a>
-                        <a href="Accommodation" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
+                        <a href="Accommodation/user" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
                             Join A Shared Home
                         </a>
                     </div>

@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Accommodations;
+use App\Models\Categories;
+use App\Models\Payments;
 
 class Expenses extends Model
 {
@@ -11,5 +14,21 @@ class Expenses extends Model
         'amount',
         'accommodations_id',
         'categories_id',
+        'persons_id',
     ];
+
+    public function expenses()
+    {
+        return $this->belongsTo(Accommodations::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payments::class);
+    }
 }

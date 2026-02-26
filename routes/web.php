@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\ExpensesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +26,5 @@ Route::get('/Accommodation/user', [DashboardController::class, 'userIndex'])->mi
 Route::post('/Create', [AccommodationController::class, 'create'])->name('Create.accommodation');
 
 Route::post('/Join', [AccommodationController::class, 'joinAccommodation'])->name('join.home');
+
+Route::post('/Expenses', [ExpensesController::class, 'createExpense'])->name('add.expenses');
