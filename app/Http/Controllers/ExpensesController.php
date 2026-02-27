@@ -28,7 +28,7 @@ class ExpensesController extends Controller
             'amount' => $expense['amount'],
             'accommodations_id' => $request->accommo_id,
             'categories_id' => $expense['category'],
-            'persons_id' => $person->id
+            'persons_id' => $person->id,
         ]);
 
         $count = Memberships::Where('accommodations_id', $request->accommo_id)
@@ -41,10 +41,17 @@ class ExpensesController extends Controller
 
         $localtime = Carbon::now();
 
+
         for( $i=0 ; $i<$count ; $i++){
+
+        $status = False;
+        
+            if($person->id === $members[$i]->persons_id)
+                $status = True;
+    
             Payments::create([
                 'amount' => $Paymentforeach,
-                'status' => false ,
+                'status' => $status ,
                 'expenses_id' => $expense->id,
                 'persons_id' => $members[$i]->persons_id,
                 'paid_at' => $localtime->toDateString(),
