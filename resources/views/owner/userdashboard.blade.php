@@ -2,7 +2,7 @@
 aaaaaaaaaaaaaaaaaaaaaaa
 <?php print_r($members);
 
-print_r($accommodationinfo);
+print_r($sum);
 ?>
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -262,12 +262,66 @@ print_r($accommodationinfo);
 
             </div>
 
+           
+
         </div>
 
         <!-- Main Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
             <!-- Recent Expenses -->
+
+            <!-- Members Balances Card -->
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-indigo-100 rounded-xl">
+            <i data-lucide="users" class="w-6 h-6 text-indigo-600"></i>
+        </div>
+        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            Home
+        </span>
+    </div>
+
+    <p class="text-sm text-gray-500 mb-4">Members Balances</p>
+
+    <div class="space-y-4">
+
+        <!-- Member Owes -->
+       @foreach($sum as $sam)
+<div class="bg-red-50 border border-red-100 p-4 rounded-xl">
+    <div class="flex justify-between items-start">
+        <div>
+            <!-- Member Name -->
+            <h1 class="font-medium text-gray-900">{{ $sam->member_name }}</h1>
+            
+            <!-- Expense Info -->
+            <p class="text-xs text-gray-500">Needs to pay for</p>
+            <p class="font-medium text-xs text-gray-900">{{ $sam->expense_title }}</p>
+
+            <!-- Expense Creator -->
+            <p class="text-xs text-gray-500">To</p>
+            <h2 class="font-medium text-xs text-gray-900">{{ $sam->expense_creator }}</h2>
+        </div>
+
+        <!-- Amount -->
+        <p class="font-bold text-red-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
+    </div>
+
+    <!-- Pay Now Form -->
+    <form method="POST" action="">
+        @csrf
+        <!-- Hidden Input with Payment ID -->
+        <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
+        <button type="submit" class="mt-3 w-full py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition shadow">
+            Pay Now
+        </button>
+    </form>
+</div>
+@endforeach
+    </div>
+
+</div>
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden card-hover">
                 <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                     <div class="flex items-center gap-3">
@@ -343,7 +397,7 @@ print_r($accommodationinfo);
 
                 <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
 
-                    @foreach($accommodationinfo as $membership)
+                    @foreach($members as $membership)
                     <div class="flex justify-between items-center bg-white/10 px-4 py-3 rounded-xl backdrop-blur-sm">
 
                         <div>
@@ -352,28 +406,18 @@ print_r($accommodationinfo);
                                 name
                             </p>
 
-                            <!-- Member Role -->
-                            <p class="text-xs text-indigo-100">
-                                role
-                            </p>
                         </div>
 
                         <div class="text-right">
 
-                            <!-- Amount to Pay -->
-
-                            <p class="font-bold text-red-300">
-                                Owes
-                            </p>
-
-                            <p class="font-bold text-green-300">
-                                Gets
-                            </p>
-
-                            <p class="font-bold text-white">
-                                Settled
-                            </p>
-
+                           <div class="flex items-center justify-between gap-5">
+                                <p class="px-2 py-1 bg-pink-100 text-pink-600 font-semibold text-sm rounded-full">
+                                    Owner
+                                </p>
+                                <button class="px-3 py-1.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 hover:text-red-900 transition text-sm">
+                                    Remove
+                                </button>
+                            </div>
 
                         </div>
                     </div>
@@ -384,31 +428,6 @@ print_r($accommodationinfo);
             </div>
 
             <!-- Quick Actions Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover flex items-center gap-4 cursor-pointer group">
-                    <div class="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition">
-                        <i data-lucide="help-circle" class="w-6 h-6 text-blue-600"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition">Help Center</h4>
-                        <p class="text-sm text-gray-500">Guides & FAQ</p>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400 ml-auto group-hover:text-primary-600 transition"></i>
-                </div>
-
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover flex items-center gap-4 cursor-pointer group">
-                    <div class="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition">
-                        <i data-lucide="mail" class="w-6 h-6 text-purple-600"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition">Contact Support</h4>
-                        <p class="text-sm text-gray-500">Have a question?</p>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400 ml-auto group-hover:text-primary-600 transition"></i>
-                </div>
-            </div>
 
     </main>
 

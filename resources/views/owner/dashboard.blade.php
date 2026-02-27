@@ -228,13 +228,24 @@
                 </div>
             </div>
             <!-- 🔹 END Token Area -->
+            <button onclick="document.getElementById('inviteEmailForm').classList.toggle('hidden')"
+               class="px-4 py-2 bg-white text-primary-600 border border-primary-200 rounded-xl font-medium hover:bg-gray-50 transition">
+                Invite by Email
+            </button>
+            <form id="inviteEmailForm" method="POST" action="{{Route('Email.Sent')}}" 
+                class="hidden mt-4 flex gap-3 items-center">
+                
+                @csrf
 
-            <div class="flex gap-3">
-                <button onclick="openModal('joinModal')"
-                    class="px-4 py-2 bg-white text-primary-600 border border-primary-200 rounded-xl font-medium hover:bg-gray-50 transition">
-                    Invite Member
+                <input type="email" name="email" required placeholder="Enter member email"
+                    class="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition">
+
+                <button type="submit"
+                    class="px-4 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition">
+                    Send Invite
                 </button>
-            </div>
+            </form>
+            
         </div>
         @else
         <!-- Welcome Banner -->
@@ -304,7 +315,57 @@
 
         <!-- Main Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
 
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-indigo-100 rounded-xl">
+            <i data-lucide="users" class="w-6 h-6 text-indigo-600"></i>
+        </div>
+        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            Home
+        </span>
+    </div>
+
+    <p class="text-sm text-gray-500 mb-4">Members Balances</p>
+
+    <div class="space-y-4">
+
+        <!-- Member Owes -->
+       @foreach($sum as $sam)
+<div class="bg-red-50 border border-red-100 p-4 rounded-xl">
+    <div class="flex justify-between items-start">
+        <div>
+            <!-- Member Name -->
+            <h1 class="font-medium text-gray-900">{{ $sam->member_name }}</h1>
+            
+            <!-- Expense Info -->
+            <p class="text-xs text-gray-500">Needs to pay for</p>
+            <p class="font-medium text-xs text-gray-900">{{ $sam->expense_title }}</p>
+
+            <!-- Expense Creator -->
+            <p class="text-xs text-gray-500">To</p>
+            <h2 class="font-medium text-xs text-gray-900">{{ $sam->expense_creator }}</h2>
+        </div>
+
+        <!-- Amount -->
+        <p class="font-bold text-red-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
+    </div>
+
+    <!-- Pay Now Form -->
+    <form method="POST" action="">
+        @csrf
+        <!-- Hidden Input with Payment ID -->
+        <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
+        <button type="submit" class="mt-3 w-full py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition shadow">
+            Pay Now
+        </button>
+    </form>
+</div>
+@endforeach
+    </div>
+
+</div>
             <!-- Recent Expenses -->
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden card-hover">
                 <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
@@ -373,89 +434,44 @@
             </div>
 
             <!-- Members Card -->
+
             <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden">
                 @if($accommodation)
-                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12 blur-xl"></div>
+                <h2 class="font-bold mb-2 text-white">
+                    accommodationinfo name
+                </h2>
 
-                <div class="relative z-10">
+                <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
 
-                    <div class="flex justify-between items-center mb-6">
-                        <div class="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                            <i data-lucide="users" class="w-6 h-6 text-white"></i>
+                    @foreach($members as $membership)
+                    <div class="flex justify-between items-center bg-white/10 px-4 py-3 rounded-xl backdrop-blur-sm">
+
+                        <div>
+                            <!-- Member Name -->
+                            <p class="font-semibold">
+                                name
+                            </p>
+
                         </div>
-                        <span class="text-xs bg-white/20 px-3 py-1 rounded-full font-medium border border-white/20">
-                            aaa
-                        </span>
-                    </div>
 
-                    <h3 class="font-bold text-xl mb-4">Home Members</h3>
+                        <div class="text-right">
 
-                    <h2 class="font-bold mb-2 text-white">aaaa</h2>
-
-                    <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
-
-                        <div class="flex justify-between items-center bg-white/10 px-4 py-3 rounded-xl backdrop-blur-sm">
-                            <div>
-
-                                <p class="font-semibold">aaaaa</p>
-                                <p class="text-xs text-indigo-100">aaaa</p>
+                           <div class="flex items-center justify-between gap-5">
+                                <p class="px-2 py-1 bg-pink-100 text-pink-600 font-semibold text-sm rounded-full">
+                                    Owner
+                                </p>
+                                <button class="px-3 py-1.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 hover:text-red-900 transition text-sm">
+                                    Remove
+                                </button>
                             </div>
 
-                            <div class="text-right">
-                                <p class="font-bold text-red-300">
-                                    Owes $aa
-                                </p>
-
-                                <p class="font-bold text-green-300">
-                                    Gets $aa
-                                </p>
-
-                                <p class="font-bold text-white">
-                                    aa
-                                </p>
-                            </div>
                         </div>
-
                     </div>
+                    @endforeach
 
                 </div>
+                @endif
             </div>
-            @else
-            <!-- ORIGINAL EMPTY STATE -->
-            <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12 blur-xl"></div>
-
-                <div class="relative z-10">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                            <i data-lucide="users" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <span class="text-xs bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full font-medium border border-white/20">EMPTY</span>
-                    </div>
-
-                    <h3 class="font-bold text-xl mb-2">Home Members</h3>
-                    <p class="text-indigo-100 text-sm mb-6">
-                        No active shared home. Create or join a home to see your roommates here.
-                    </p>
-
-                    <div class="space-y-3">
-                        <button onclick="openModal('createColocModal')" class="w-full py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-gray-50 transition shadow-lg flex items-center justify-center gap-2">
-                            <i data-lucide="plus" class="w-4 h-4"></i>
-                            Create Shared Home
-                        </button>
-                        <button onclick="openModal('joinModal')" class="w-full py-3 bg-white/10 text-white border-2 border-white/30 rounded-xl font-semibold hover:bg-white/20 transition flex items-center justify-center gap-2">
-                            <i data-lucide="log-in" class="w-4 h-4"></i>
-                            Join with Token
-                        </button>
-                    </div>
-                </div>
-            </div>
-            @endif
-        </div>
-
-        </div>
 
         <!-- Quick Actions Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
