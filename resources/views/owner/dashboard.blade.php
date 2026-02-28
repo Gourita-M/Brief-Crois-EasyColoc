@@ -97,10 +97,10 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900 antialiased">
+<body class="bg-slate-50 text-slate-900 antialiased">
 
     <!-- Top Navigation -->
-    <nav class="glass-effect w-full z-50 border-b border-gray-200">
+    <nav class="glass-effect w-full z-50 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <!-- Logo - Links to Home -->
@@ -118,7 +118,7 @@
 
                         <!-- Button -->
                         <button id="notifBtn"
-                            class="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                            class="relative p-2 text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition">
 
                             <!-- Bell SVG (no lucide needed) -->
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@
 
                         <!-- Dropdown -->
                         <div id="notifDropdown"
-                            class="absolute right-0 mt-3 w-72 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden
+                            class="absolute right-0 mt-3 w-72 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden
                 transform scale-y-0 origin-top transition-transform duration-300 ease-out">
 
                             <div class="p-4 font-semibold border-b">
@@ -144,13 +144,13 @@
                             </div>
 
                             <ul class="divide-y">
-                                <li class="p-4 hover:bg-gray-50 cursor-pointer">
+                                <li class="p-4 hover:bg-slate-50 cursor-pointer">
                                     New user registered
                                 </li>
-                                <li class="p-4 hover:bg-gray-50 cursor-pointer">
+                                <li class="p-4 hover:bg-slate-50 cursor-pointer">
                                     Payment received
                                 </li>
-                                <li class="p-4 hover:bg-gray-50 cursor-pointer">
+                                <li class="p-4 hover:bg-slate-50 cursor-pointer">
                                     Reputation updated
                                 </li>
                             </ul>
@@ -160,29 +160,29 @@
 
                     <!-- User Profile Dropdown -->
                     <div class="relative" id="userDropdown">
-                        <button onclick="toggleDropdown()" class="flex items-center space-x-3 pl-3 border-l border-gray-200 hover:bg-gray-50 rounded-lg py-1 pr-1 transition">
+                        <button onclick="toggleDropdown()" class="flex items-center space-x-3 pl-3 border-l border-slate-200 hover:bg-slate-50 rounded-lg py-1 pr-1 transition">
 
-                            <img src="https://i.pravatar.cc/150?img=11" alt="User" class="w-10 h-10 rounded-full border-2 border-primary-500 shadow-sm object-cover">
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 hidden sm:block"></i>
+                            <img src="https://i.pravatar.cc/150?img=11" alt="User" class="w-10 h-10 rounded-full border-2 border-indigo-500 shadow-sm object-cover">
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 hidden sm:block"></i>
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
-                            <div class="px-4 py-3 border-b border-gray-100">
-                                <p class="text-sm font-semibold text-gray-900">John Doe</p>
-                                <p class="text-xs text-gray-500">john.doe@example.com</p>
+                        <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50">
+                            <div class="px-4 py-3 border-b border-slate-100">
+                                <p class="text-sm font-semibold text-slate-900">John Doe</p>
+                                <p class="text-xs text-slate-500">john.doe@example.com</p>
                             </div>
-                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
-                                <i data-lucide="user" class="w-4 h-4 mr-3 text-gray-400"></i>
+                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition">
+                                <i data-lucide="user" class="w-4 h-4 mr-3 text-slate-400"></i>
                                 Profile
                             </a>
-                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
-                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-gray-400"></i>
+                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition">
+                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-slate-400"></i>
                                 Settings
                             </a>
-                            <div class="border-t border-gray-100 mt-1 pt-1">
+                            <div class="border-t border-slate-100 mt-1 pt-1">
                                 <form method="POST" action="{{ route('logout') }}">
-                                 @csrf
+                                    @csrf
                                     <button type="submit" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
                                         <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
                                         Logout
@@ -199,36 +199,36 @@
     <!-- Main Content -->
     <main class="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
         @if($accommodation)
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover mb-8">
             <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-blue-100 rounded-xl">
-                    <i data-lucide="home" class="w-6 h-6 text-blue-600"></i>
+                <div class="p-3 bg-indigo-100 rounded-xl">
+                    <i data-lucide="home" class="w-6 h-6 text-indigo-600"></i>
                 </div>
-                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
 
                 </span>
             </div>
 
-            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $accommodation->name }}</h3>
-            <p class="text-gray-500 mb-4">{{ $accommodation->adress }}</p>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $accommodation->name }}</h3>
+            <p class="text-slate-500 mb-4">{{ $accommodation->adress }}</p>
 
             <!-- 🔹 Local Token Area (ADDED) -->
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
-                <p class="text-sm text-gray-500 mb-2">Home Invitation Token</p>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4">
+                <p class="text-sm text-slate-500 mb-2">Home Invitation Token</p>
                 <div class="flex items-center justify-between">
-                    <span class="font-mono text-lg tracking-wider text-gray-900">
+                    <span class="font-mono text-lg tracking-wider text-slate-900">
                         {{ $accommodation->local_token }}
                     </span>
                     <button
                         onclick="navigator.clipboard.writeText('{{ $accommodation->token }}'); showToast('Token copied!')"
-                        class="px-3 py-1.5 text-sm bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                        class="px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
                         Copy
                     </button>
                 </div>
             </div>
             <!-- 🔹 END Token Area -->
             <button onclick="document.getElementById('inviteEmailForm').classList.toggle('hidden')"
-               class="px-4 py-2 bg-white text-primary-600 border border-primary-200 rounded-xl font-medium hover:bg-gray-50 transition">
+               class="px-4 py-2 bg-white text-indigo-600 border border-indigo-200 rounded-xl font-medium hover:bg-slate-50 transition">
                 Invite by Email
             </button>
             <form id="inviteEmailForm" method="POST" action="{{Route('Email.Sent')}}" 
@@ -237,10 +237,10 @@
                 @csrf
 
                 <input type="email" name="email" required placeholder="Enter member email"
-                    class="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition">
+                    class="flex-1 px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
 
                 <button type="submit"
-                    class="px-4 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition">
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition">
                     Send Invite
                 </button>
             </form>
@@ -256,7 +256,7 @@
                     <p class="text-indigo-100">Start by creating your first shared home or join an existing one.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="openModal('createColocModal')" class="px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-gray-50 transition shadow-lg">
+                    <button onclick="openModal('createColocModal')" class="px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-slate-50 transition shadow-lg">
                         Create Home
                     </button>
                     <button onclick="openModal('joinModal')" class="px-5 py-2.5 bg-white/20 text-white border-2 border-white/30 rounded-xl font-semibold hover:bg-white/30 transition">
@@ -266,47 +266,47 @@
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover mb-8 text-center">
-            <p class="text-gray-500">You have no active shared home. Create or join a home to see details here.</p>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover mb-8 text-center">
+            <p class="text-slate-500">You have no active shared home. Create or join a home to see details here.</p>
         </div>
         @endif
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-yellow-100 rounded-xl">
-                        <i data-lucide="star" class="w-6 h-6 text-yellow-600"></i>
+                    <div class="p-3 bg-amber-100 rounded-xl">
+                        <i data-lucide="star" class="w-6 h-6 text-amber-600"></i>
                     </div>
-                    <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Global</span>
+                    <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">Global</span>
                 </div>
-                <p class="text-sm text-gray-500 mb-1">My Reputation Score</p>
-                <p class="text-2xl font-bold text-gray-900">0</p>
+                <p class="text-sm text-slate-500 mb-1">My Reputation Score</p>
+                <p class="text-2xl font-bold text-slate-900">0</p>
 
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-purple-100 rounded-xl">
-                        <i data-lucide="shopping-cart" class="w-6 h-6 text-purple-600"></i>
+                    <div class="p-3 bg-violet-100 rounded-xl">
+                        <i data-lucide="shopping-cart" class="w-6 h-6 text-violet-600"></i>
                     </div>
-                    <span class="text-xs font-medium text-primary-600 bg-primary-50 px-2 py-1 rounded-full">February</span>
+                    <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">February</span>
                 </div>
-                <p class="text-sm text-gray-500 mb-1">Total Expenses</p>
-                <p class="text-2xl font-bold text-gray-900">$0.00</p>
+                <p class="text-sm text-slate-500 mb-1">Total Expenses</p>
+                <p class="text-2xl font-bold text-slate-900">$0.00</p>
 
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
                 <div class="flex items-center justify-between mb-4">
                     <div class="p-3 bg-blue-100 rounded-xl">
                         <i data-lucide="users" class="w-6 h-6 text-blue-600"></i>
                     </div>
-                    <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Total</span>
+                    <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">Total</span>
                 </div>
-                <p class="text-sm text-gray-500 mb-1">Active Members</p>
-                <p class="text-2xl font-bold text-gray-900">{{$membershipscount}}</p>
+                <p class="text-sm text-slate-500 mb-1">Active Members</p>
+                <p class="text-2xl font-bold text-slate-900">{{$membershipscount}}</p>
 
             </div>
 
@@ -314,41 +314,41 @@
 
         <!-- Main Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover">
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
 
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
         <div class="p-3 bg-indigo-100 rounded-xl">
             <i data-lucide="users" class="w-6 h-6 text-indigo-600"></i>
         </div>
-        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+        <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
             Home
         </span>
     </div>
 
-    <p class="text-sm text-gray-500 mb-4">Members Balances</p>
+    <p class="text-sm text-slate-500 mb-4">Members Balances</p>
 
     <div class="space-y-4">
 
         <!-- Member Owes -->
        @foreach($sum as $sam)
-<div class="bg-red-50 border border-red-100 p-4 rounded-xl">
+<div class="bg-rose-50 border border-rose-100 p-4 rounded-xl">
     <div class="flex justify-between items-start">
         <div>
             <!-- Member Name -->
-            <h1 class="font-medium text-gray-900">{{ $sam->member_name }}</h1>
+            <h1 class="font-medium text-slate-900">{{ $sam->member_name }}</h1>
             
             <!-- Expense Info -->
-            <p class="text-xs text-gray-500">Needs to pay for</p>
-            <p class="font-medium text-xs text-gray-900">{{ $sam->expense_title }}</p>
+            <p class="text-xs text-slate-500">Needs to pay for</p>
+            <p class="font-medium text-xs text-slate-900">{{ $sam->expense_title }}</p>
 
             <!-- Expense Creator -->
-            <p class="text-xs text-gray-500">To</p>
-            <h2 class="font-medium text-xs text-gray-900">{{ $sam->expense_creator }}</h2>
+            <p class="text-xs text-slate-500">To</p>
+            <h2 class="font-medium text-xs text-slate-900">{{ $sam->expense_creator }}</h2>
         </div>
 
         <!-- Amount -->
-        <p class="font-bold text-red-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
+        <p class="font-bold text-rose-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
     </div>
     
     @if($sam->zz === auth()->user()->id)
@@ -356,7 +356,7 @@
         @csrf
         <!-- Hidden Input with Payment ID -->
         <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
-        <button type="submit" class="mt-3 w-full py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition shadow">
+        <button type="submit" class="mt-3 w-full py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition shadow">
             Pay Now
         </button>
     </form>
@@ -367,13 +367,13 @@
 
 </div>
             <!-- Recent Expenses -->
-            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden card-hover">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden card-hover">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                     <div class="flex items-center gap-3">
-                        <div class="p-2 bg-primary-100 rounded-lg">
-                            <i data-lucide="receipt" class="w-5 h-5 text-primary-600"></i>
+                        <div class="p-2 bg-indigo-100 rounded-lg">
+                            <i data-lucide="receipt" class="w-5 h-5 text-indigo-600"></i>
                         </div>
-                        <h3 class="font-bold text-gray-900 text-lg">Recent Expenses</h3>
+                        <h3 class="font-bold text-slate-900 text-lg">Recent Expenses</h3>
                     </div>
 
                 </div>
@@ -382,19 +382,19 @@
 
                 <div class="space-y-3">
                     @foreach($expenses as $expense)
-                    <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border">
+                    <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-slate-100">
 
                         <div>
-                            <p class="font-medium text-gray-900">
+                            <p class="font-medium text-slate-900">
                                 {{ $expense->title }}
                             </p>
-                            <p class="text-sm text-gray-500">
+                            <p class="text-sm text-slate-500">
                                 Added by {{ $expense->name }}
                             </p>
                         </div>
 
                         <div class="text-right">
-                            <p class="font-semibold text-primary-600">
+                            <p class="font-semibold text-indigo-600">
                                 {{ number_format($expense->amount, 2) }} MAD
                             </p>
                         </div>
@@ -406,7 +406,7 @@
                 <!-- ✅ Added Button -->
                 <div class="text-center mt-6">
                     <button onclick="openModal('expenseModal')"
-                        class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition shadow-md">
+                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-md">
                         <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Add More Expenses
                     </button>
@@ -416,16 +416,16 @@
 
                 <!-- Your Empty State -->
                 <div class="p-12 text-center">
-                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 float-animation">
-                        <i data-lucide="receipt" class="w-10 h-10 text-gray-400"></i>
+                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 float-animation">
+                        <i data-lucide="receipt" class="w-10 h-10 text-slate-400"></i>
                     </div>
-                    <h4 class="text-lg font-medium text-gray-900 mb-2">No recent expenses</h4>
-                    <p class="text-gray-500 mb-6 max-w-sm mx-auto">
+                    <h4 class="text-lg font-medium text-slate-900 mb-2">No recent expenses</h4>
+                    <p class="text-slate-500 mb-6 max-w-sm mx-auto">
                         Start adding expenses to see history and statistics here.
                     </p>
                     @if($expenses)
                     <button onclick="openModal('expenseModal')"
-                        class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition shadow-md">
+                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-md">
                         <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Add Expense
                     </button>
@@ -435,91 +435,125 @@
                 @endif
             </div>
 
-            <!-- Members Card -->
+           <div class="bg-gradient-to-br from-indigo-600 to-purple-700 
+            text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
 
-            <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden">
-                @if($accommodation)
-                <h2 class="font-bold mb-2 text-white">
-                    accommodationinfo name
-                </h2>
+    @if($accommodation)
 
-                <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
+        <!-- Header -->
+        <div class="mb-4">
+            <h2 class="text-xl font-bold tracking-wide">
+                {{ $accommodationinfo->name ?? 'Accommodation Members' }}
+            </h2>
+            <p class="text-sm text-indigo-100">
+                Manage members and roles
+            </p>
+        </div>
 
-                    @foreach($members as $membership)
-                    <div class="flex justify-between items-center bg-white/10 px-4 py-3 rounded-xl backdrop-blur-sm">
+        <!-- Members List -->
+        <div class="space-y-3 max-h-64 overflow-y-auto pr-2">
 
-                        <div>
-                            <!-- Member Name -->
-                            <p class="font-semibold">
-                                name
-                            </p>
+            @foreach($members as $membership)
 
-                        </div>
+                <div class="flex items-center justify-between 
+                            bg-white/10 hover:bg-white/20 
+                            transition-all duration-200
+                            px-4 py-3 rounded-xl backdrop-blur-sm">
 
-                        <div class="text-right">
-
-                           <div class="flex items-center justify-between gap-5">
-                                <p class="px-2 py-1 bg-pink-100 text-pink-600 font-semibold text-sm rounded-full">
-                                    Owner
-                                </p>
-                                <button class="px-3 py-1.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 hover:text-red-900 transition text-sm">
-                                    Remove
-                                </button>
-                            </div>
-
-                        </div>
+                    <!-- Left: Name -->
+                    <div>
+                        <p class="font-semibold text-white">
+                            {{ $membership->name }}
+                        </p>
                     </div>
-                    @endforeach
 
+                    <!-- Right: Role + Action -->
+                    <div class="flex items-center gap-4">
+
+                        <!-- Role Badge -->
+                        <span class="
+                            px-3 py-1 text-xs font-semibold rounded-full
+                            {{ $membership->role === 'Owner'
+                                ? 'bg-emerald-100 text-emerald-700'
+                                : 'bg-pink-100 text-pink-600'
+                            }}
+                        ">
+                            {{ $membership->role }}
+                        </span>
+
+                        <!-- Remove Button -->
+                        @if($membership->role !== 'Owner')
+                            <form method="POST" action="">
+                                @csrf
+                                @method('DELETE')
+
+                                <button 
+                                    type="submit"
+                                    class="w-8 h-8 flex items-center justify-center
+                                           rounded-full bg-red-100 text-red-600
+                                           hover:bg-red-200 hover:text-red-800
+                                           transition-all duration-200"
+                                >
+                                    ✕
+                                </button>
+                            </form>
+                        @endif
+
+                    </div>
                 </div>
-                @endif
-            </div>
+
+            @endforeach
+
+        </div>
+
+    @endif
+</div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 px-6 py-6">
+    <footer class="bg-white border-t border-slate-200 px-6 py-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-sm text-gray-500">© 2024 EasyColoc. All rights reserved.</p>
+            <p class="text-sm text-slate-500">© 2024 EasyColoc. All rights reserved.</p>
             <div class="flex items-center gap-6">
-                <a href="#" class="text-sm text-gray-500 hover:text-primary-600 transition">Privacy</a>
-                <a href="#" class="text-sm text-gray-500 hover:text-primary-600 transition">Terms</a>
-                <a href="#" class="text-sm text-gray-500 hover:text-primary-600 transition">Contact</a>
+                <a href="#" class="text-sm text-slate-500 hover:text-indigo-600 transition">Privacy</a>
+                <a href="#" class="text-sm text-slate-500 hover:text-indigo-600 transition">Terms</a>
+                <a href="#" class="text-sm text-slate-500 hover:text-indigo-600 transition">Contact</a>
             </div>
         </div>
     </footer>
 
     <!-- Create Shared Home Modal -->
     <div id="createColocModal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeModal('createColocModal')"></div>
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" onclick="closeModal('createColocModal')"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg transform transition-all scale-100 max-h-[90vh] overflow-y-auto">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
                     <div class="flex items-center gap-3">
                         <div class="p-2 bg-indigo-100 rounded-lg">
                             <i data-lucide="home" class="w-5 h-5 text-indigo-600"></i>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-900">New Shared Home</h2>
+                        <h2 class="text-xl font-bold text-slate-900">New Shared Home</h2>
                     </div>
-                    <button onclick="closeModal('createColocModal')" class="p-2 hover:bg-gray-100 rounded-lg transition">
-                        <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
+                    <button onclick="closeModal('createColocModal')" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                        <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
                     </button>
                 </div>
 
-                <form method="post" action=" {{ Route('Create.accommodation')}}" class="p-6 space-y-6" onsubmit="closeModal('createColocModal');">
+                <form method="post" action="{{ Route('Create.accommodation')}}" class="p-6 space-y-6" onsubmit="closeModal('createColocModal');">
                     @csrf
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Home Name <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Home Name <span class="text-rose-500">*</span></label>
                         <input name="name" type="text" placeholder="e.g., Sunset Apartment" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Address <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Address <span class="text-rose-500">*</span></label>
                         <div class="relative">
-                            <i data-lucide="map-pin" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                            <i data-lucide="map-pin" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
                             <input name="adress" type="text" placeholder="123 Youcode, Safi, CP 46000" required
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                                class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
                         </div>
                     </div>
 
@@ -532,7 +566,7 @@
 
                     <div class="flex gap-3 pt-2">
                         <button type="button" onclick="closeModal('createColocModal')"
-                            class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition">Cancel</button>
+                            class="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition">Cancel</button>
                         <button type="submit"
                             class="flex-1 px-4 py-3 gradient-bg text-white rounded-xl font-medium hover:opacity-90 transition shadow-lg">Create</button>
                     </div>
@@ -543,38 +577,38 @@
 
     <!-- Join with Token Modal -->
     <div id="joinModal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeModal('joinModal')"></div>
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" onclick="closeModal('joinModal')"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all scale-100">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center">
                     <div class="flex items-center gap-3">
-                        <div class="p-2 bg-green-100 rounded-lg">
-                            <i data-lucide="log-in" class="w-5 h-5 text-green-600"></i>
+                        <div class="p-2 bg-emerald-100 rounded-lg">
+                            <i data-lucide="log-in" class="w-5 h-5 text-emerald-600"></i>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-900">Join a Home</h2>
+                        <h2 class="text-xl font-bold text-slate-900">Join a Home</h2>
                     </div>
-                    <button onclick="closeModal('joinModal')" class="p-2 hover:bg-gray-100 rounded-lg transition">
-                        <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
+                    <button onclick="closeModal('joinModal')" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                        <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
                     </button>
                 </div>
 
-                <form method="post" action="{{Route('join.home')}}" class="p-6 space-y-6" onsubmit=" closeModal('joinModal');">
+                <form method="post" action="{{Route('join.home')}}" class="p-6 space-y-6" onsubmit="closeModal('joinModal');">
                     @csrf
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Invitation Token <span class="text-red-500">*</span>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">
+                            Invitation Token <span class="text-rose-500">*</span>
                         </label>
                         <input name="token" type="text" placeholder="Enter token" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition text-center text-lg">
-                        <p class="text-xs text-gray-500 mt-2 text-center">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition text-center text-lg">
+                        <p class="text-xs text-slate-500 mt-2 text-center">
                             Enter the 12-character code sent by email
                         </p>
                     </div>
 
-                    <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-100">
+                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-100">
                         <div class="flex items-start gap-3">
-                            <i data-lucide="alert-circle" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5"></i>
-                            <div class="text-sm text-yellow-800">
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                            <div class="text-sm text-amber-800">
                                 <p class="font-medium mb-1">Important</p>
                                 <p>You can only join one active shared home at a time.</p>
                             </div>
@@ -583,9 +617,9 @@
 
                     <div class="flex gap-3">
                         <button type="button" onclick="closeModal('joinModal')"
-                            class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition">Cancel</button>
+                            class="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition">Cancel</button>
                         <button type="submit"
-                            class="flex-1 px-4 py-3 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition shadow-lg">Join</button>
+                            class="flex-1 px-4 py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition shadow-lg">Join</button>
                     </div>
                 </form>
             </div>
@@ -594,18 +628,18 @@
 
     <!-- Add Expense Modal -->
     <div id="expenseModal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeModal('expenseModal')"></div>
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" onclick="closeModal('expenseModal')"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg transform transition-all scale-100">
-                <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center">
                     <div class="flex items-center gap-3">
-                        <div class="p-2 bg-purple-100 rounded-lg">
-                            <i data-lucide="receipt" class="w-5 h-5 text-purple-600"></i>
+                        <div class="p-2 bg-violet-100 rounded-lg">
+                            <i data-lucide="receipt" class="w-5 h-5 text-violet-600"></i>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-900">New Expense</h2>
+                        <h2 class="text-xl font-bold text-slate-900">New Expense</h2>
                     </div>
-                    <button onclick="closeModal('expenseModal')" class="p-2 hover:bg-gray-100 rounded-lg transition">
-                        <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
+                    <button onclick="closeModal('expenseModal')" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                        <i data-lucide="x" class="w-5 h-5 text-slate-500"></i>
                     </button>
                 </div>
 
@@ -615,47 +649,47 @@
                     <input name="accommo_id" value="{{$accommodation->id}}" type="text" hidden>
                     @endif
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Title <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Title <span class="text-rose-500">*</span></label>
                         <input name="title" type="text" placeholder="e.g., Grocery Shopping" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition">
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount MAD<span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Amount MAD<span class="text-rose-500">*</span></label>
                             <div class="relative">
                                 <input name="amount" type="number" step="0.01" placeholder="0.00" required
-                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition">
+                                    class="w-full pl-8 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Date</label>
                             <input type="date"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition">
+                                class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Category</label>
                         <div class="grid grid-cols-3 gap-2">
                             <label class="cursor-pointer">
                                 <input value="1" type="radio" name="category" class="peer sr-only" checked>
-                                <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 text-center transition hover:border-purple-300">
-                                    <i data-lucide="home" class="w-5 h-5 mx-auto mb-1 text-gray-600 peer-checked:text-purple-600"></i>
+                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-violet-500 peer-checked:bg-violet-50 text-center transition hover:border-violet-300">
+                                    <i data-lucide="home" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-violet-600"></i>
                                     <span class="text-xs font-medium">Rent</span>
                                 </div>
                             </label>
                             <label class="cursor-pointer">
                                 <input value="1" type="radio" name="category" class="peer sr-only">
-                                <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 text-center transition hover:border-purple-300">
-                                    <i data-lucide="shopping-cart" class="w-5 h-5 mx-auto mb-1 text-gray-600 peer-checked:text-purple-600"></i>
+                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-violet-500 peer-checked:bg-violet-50 text-center transition hover:border-violet-300">
+                                    <i data-lucide="shopping-cart" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-violet-600"></i>
                                     <span class="text-xs font-medium">Groceries</span>
                                 </div>
                             </label>
                             <label class="cursor-pointer">
                                 <input value="1" type="radio" name="category" class="peer sr-only">
-                                <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 text-center transition hover:border-purple-300">
-                                    <i data-lucide="zap" class="w-5 h-5 mx-auto mb-1 text-gray-600 peer-checked:text-purple-600"></i>
+                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-violet-500 peer-checked:bg-violet-50 text-center transition hover:border-violet-300">
+                                    <i data-lucide="zap" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-violet-600"></i>
                                     <span class="text-xs font-medium">Bills</span>
                                 </div>
                             </label>
@@ -664,9 +698,9 @@
 
                     <div class="flex gap-3 pt-2">
                         <button type="button" onclick="closeModal('expenseModal')"
-                            class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition">Cancel</button>
+                            class="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition">Cancel</button>
                         <button type="submit"
-                            class="flex-1 px-4 py-3 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-700 transition shadow-lg">Add</button>
+                            class="flex-1 px-4 py-3 bg-violet-600 text-white rounded-xl font-medium hover:bg-violet-700 transition shadow-lg">Add</button>
                     </div>
                 </form>
             </div>
@@ -675,20 +709,20 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-4 right-4 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
-        <div class="bg-gray-900 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3">
-            <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <div class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
             <span id="toastMessage">Success</span>
         </div>
     </div>
 
     @if(session('success'))
-    <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
+    <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
         {{session('success')}}
     </div>
     @endif
 
     @if(session('failure'))
-    <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
+    <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-rose-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
         {{session('failure')}}
     </div>
     @endif
