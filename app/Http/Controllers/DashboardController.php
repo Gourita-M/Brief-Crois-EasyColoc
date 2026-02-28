@@ -51,7 +51,6 @@ class DashboardController extends Controller
              $membership = Memberships::where('persons_id', $person->id)
                                 ->where('role', 'Owner')->first();
        
-      
 
             $members = DB::table('memberships as m')
             ->leftJoin('persons as p', 'm.persons_id', '=', 'p.id')
@@ -59,6 +58,7 @@ class DashboardController extends Controller
             ->where('m.accommodations_id', $membership->accommodations_id)
             ->select(
                 'm.id as membership_id',
+                'p.role',
                 'm.persons_id',
                 'p.users_id as person_users_id',
                 'u.id as user_id',
@@ -67,7 +67,7 @@ class DashboardController extends Controller
             ->get();
             
         
-            return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members'));
+            return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members','membership'));
         
         }else{
 
@@ -75,8 +75,9 @@ class DashboardController extends Controller
         $membershipscount = 0;
         $sum = [] ;
         $members = null;
+        $membership = [];
         
-        return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members'));
+        return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members', 'membership'));
         }
 
     }
