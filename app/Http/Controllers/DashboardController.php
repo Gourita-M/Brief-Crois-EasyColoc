@@ -42,6 +42,7 @@ class DashboardController extends Controller
             ->select(
                 'p.id as payment_id',
                 'member_user.name as member_name',
+                'member_user.id as zz',
                 'e.title as expense_title',
                 'creator_user.name as expense_creator',
                 'p.amount as total_owed'
@@ -70,10 +71,12 @@ class DashboardController extends Controller
         
         }else{
 
-        $expenses = null ;
+        $expenses = false ;
         $membershipscount = 0;
+        $sum = [] ;
+        $members = null;
         
-        return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses'));
+        return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members'));
         }
 
     }
@@ -93,6 +96,7 @@ class DashboardController extends Controller
         ->where('m.accommodations_id', $membership->accommodations_id)
         ->select(
             'm.id as membership_id',
+            'p.role as role',
             'm.persons_id',
             'p.users_id as person_users_id',
             'u.id as user_id',
@@ -119,6 +123,7 @@ class DashboardController extends Controller
             ->where('e.accommodations_id', $accommodationinfo->id)
             ->select(
                 'p.id as payment_id',
+                'member_user.id as zz',
                 'member_user.name as member_name',
                 'e.title as expense_title',
                 'creator_user.name as expense_creator',

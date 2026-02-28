@@ -189,10 +189,13 @@ print_r($sum);
                                 Settings
                             </a>
                             <div class="border-t border-gray-100 mt-1 pt-1">
-                                <a href="#" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
-                                    <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
-                                    Logout
-                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                 @csrf
+                                    <button type="submit" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+                                        <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
+                                        Logout
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -308,8 +311,8 @@ print_r($sum);
         <p class="font-bold text-red-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
     </div>
 
-    <!-- Pay Now Form -->
-    <form method="POST" action="">
+    @if($sam->zz === auth()->user()->id)
+    <form method="POST" action="{{ Route('pay.expense') }}">
         @csrf
         <!-- Hidden Input with Payment ID -->
         <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
@@ -317,6 +320,7 @@ print_r($sum);
             Pay Now
         </button>
     </form>
+    @endif
 </div>
 @endforeach
     </div>
@@ -389,43 +393,79 @@ print_r($sum);
 
             <!-- Members Card -->
 
-            <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white rounded-2xl p-6 shadow-lg card-hover relative overflow-hidden">
-                @if($accommodationinfo)
-                <h2 class="font-bold mb-2 text-white">
-                    accommodationinfo name
-                </h2>
+           <div class="bg-gradient-to-br from-indigo-600 to-purple-700 
+            text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
 
-                <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
+    @if($accommodationinfo)
 
-                    @foreach($members as $membership)
-                    <div class="flex justify-between items-center bg-white/10 px-4 py-3 rounded-xl backdrop-blur-sm">
+        <!-- Header -->
+        <div class="mb-4">
+            <h2 class="text-xl font-bold tracking-wide">
+                {{ $accommodationinfo->name ?? 'Accommodation Members' }}
+            </h2>
+            <p class="text-sm text-indigo-100">
+                Manage members and roles
+            </p>
+        </div>
 
-                        <div>
-                            <!-- Member Name -->
-                            <p class="font-semibold">
-                                name
-                            </p>
+        <!-- Members List -->
+        <div class="space-y-3 max-h-64 overflow-y-auto pr-2">
 
-                        </div>
+            @foreach($members as $membership)
 
-                        <div class="text-right">
+                <div class="flex items-center justify-between 
+                            bg-white/10 hover:bg-white/20 
+                            transition-all duration-200
+                            px-4 py-3 rounded-xl backdrop-blur-sm">
 
-                           <div class="flex items-center justify-between gap-5">
-                                <p class="px-2 py-1 bg-pink-100 text-pink-600 font-semibold text-sm rounded-full">
-                                    Owner
-                                </p>
-                                <button class="px-3 py-1.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 hover:text-red-900 transition text-sm">
-                                    Remove
-                                </button>
-                            </div>
-
-                        </div>
+                    <!-- Left: Name -->
+                    <div>
+                        <p class="font-semibold text-white">
+                            {{ $membership->name }}
+                        </p>
                     </div>
-                    @endforeach
 
+                    <!-- Right: Role + Action -->
+                    <div class="flex items-center gap-4">
+
+                        <!-- Role Badge -->
+                        <span class="
+                            px-3 py-1 text-xs font-semibold rounded-full
+                            {{ $membership->role === 'Owner'
+                                ? 'bg-emerald-100 text-emerald-700'
+                                : 'bg-pink-100 text-pink-600'
+                            }}
+                        ">
+                            {{ $membership->role }}
+                        </span>
+
+                        <!-- Remove Button -->
+                        @if($membership->role !== 'Owner')
+                            <form method="POST" action="">
+                                @csrf
+                                @method('DELETE')
+
+                                <button 
+                                    type="submit"
+                                    class="w-8 h-8 flex items-center justify-center
+                                           rounded-full bg-red-100 text-red-600
+                                           hover:bg-red-200 hover:text-red-800
+                                           transition-all duration-200"
+                                >
+                                    ✕
+                                </button>
+                            </form>
+                        @endif
+
+                    </div>
                 </div>
-                @endif
-            </div>
+
+            @endforeach
+
+        </div>
+
+    @endif
+</div>
 
             <!-- Quick Actions Grid -->
 

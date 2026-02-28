@@ -1,48 +1,127 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ColocManager</title>
 
-        <x-validation-errors class="mb-4" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+
+<body class="min-h-screen gradient-bg hero-pattern flex items-center justify-center px-4">
+
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10">
+
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">
+                Welcome Back 👋
+            </h1>
+            <p class="text-gray-500 mt-2">
+                Login to manage your shared home
+            </p>
+        </div>
+
+        <!-- Validation Errors -->
+        @if ($errors->any())
+            <div class="mb-4 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg p-3">
+                <ul class="list-disc list-inside space-y-1">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        @endsession
+        @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <!-- Session Status -->
+        @if (session('status'))
+            <div class="mb-4 bg-green-50 border border-green-200 text-green-600 text-sm rounded-lg p-3">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <!-- Login Form -->
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
             @csrf
 
+            <!-- Email -->
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Email
                 </label>
+                <input 
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    required
+                    autofocus
+                    autocomplete="username"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                    placeholder="you@example.com"
+                >
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <!-- Password -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Password
+                </label>
+                <input 
+                    type="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                    placeholder="••••••••"
+                >
+            </div>
+
+            <!-- Remember Me -->
+            <div class="flex items-center justify-between text-sm">
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="remember" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                    <span class="text-gray-600">Remember me</span>
+                </label>
+
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                    <a href="{{ route('password.request') }}" 
+                       class="text-indigo-600 hover:text-indigo-800 font-medium">
+                        Forgot password?
                     </a>
                 @endif
-
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
             </div>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit"
+                class="w-full py-3 gradient-bg text-white rounded-xl font-semibold text-lg hover:opacity-90 transition-all transform hover:scale-[1.02] shadow-lg"
+            >
+                Log In
+            </button>
         </form>
-    </x-authentication-card>
-</x-guest-layout>
+
+        <!-- Register Link -->
+        <div class="mt-6 text-center text-sm text-gray-500">
+            Don't have an account?
+            <a href="{{ route('register') }}" class="text-indigo-600 font-medium hover:text-indigo-800">
+                Create one
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

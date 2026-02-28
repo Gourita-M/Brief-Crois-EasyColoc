@@ -6,6 +6,7 @@ use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\ExpensesController;
 use App\Mail\TestMail;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,3 +33,11 @@ Route::post('/Join', [AccommodationController::class, 'joinAccommodation'])->nam
 Route::post('/Expenses', [ExpensesController::class, 'createExpense'])->name('add.expenses');
 
 Route::post('/Mail', [InvitationController::class, 'sendemail'])->name('Email.Sent');
+
+Route::get('/Invitation-Link/{token}', [InvitationController::class, 'invitation'])->middleware('auth');
+
+Route::post('/Approve', [InvitationController::class, 'acceptInvitation'])->name('aprove.invite')->middleware('auth');
+
+Route::Post('/Decline', [InvitationController::class, 'declineInvitation'])->name('decline.invite')->middleware('auth');
+
+Route::POST('/PayExpense', [PaymentController::class, 'payAnExpense'])->name('pay.expense');

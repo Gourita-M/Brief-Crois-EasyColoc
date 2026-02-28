@@ -23,11 +23,20 @@ class AccommodationController extends Controller
 
         $person = Persons::where('users_id', auth::user()->id)->first();
 
+        $person->update([
+            'role' => 'Owner',
+        ]);
+
         $Accommodationexists = Accommodations::where('persons_id', $person->id)
                                                 ->where('status', 'Active')->exists();
+        $membershipp = Memberships::Where('persons_id', $person->id)
+                                    ->where('is_active', 1)->exists();
 
         if($Accommodationexists){
             return Redirect('/Accommodation')->with('failure', 'You already Have a Home.');
+        }
+        if($membershipp){
+            return Redirect('/Accommodation')->with('failure', 'You Are already Part of a Home.');
         }
 
         $Accommodation = Accommodations::create([

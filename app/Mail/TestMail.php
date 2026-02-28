@@ -13,13 +13,12 @@ class TestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
     /**
      * Create a new message instance.
      */
-    public function __construct($testing)
+    public function __construct()
     {
-        return $this->token = $testing;
+        //
     }
 
     /**

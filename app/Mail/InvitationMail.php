@@ -17,9 +17,9 @@ class InvitationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($testing)
+    public function __construct($token)
     {
-        return $this->token = $testing;
+        return $this->token = $token;
     }
     /**
      * Get the message envelope.

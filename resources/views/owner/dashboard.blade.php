@@ -1,5 +1,5 @@
 {{ auth()->user()->name}}
-<?php print_r($expenses) ?>
+{{ print_r($expenses) }}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -113,11 +113,7 @@
 
                 <!-- Right Side -->
                 <div class="flex items-center space-x-4">
-                    <button onclick="openModal('createColocModal')" class="hidden sm:inline-flex items-center px-4 py-2 gradient-bg text-white rounded-lg font-medium hover:opacity-90 transition shadow-md">
-                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                        New Home
-                    </button>
-
+                    
                     <div class="relative inline-block">
 
                         <!-- Button -->
@@ -185,10 +181,13 @@
                                 Settings
                             </a>
                             <div class="border-t border-gray-100 mt-1 pt-1">
-                                <a href="#" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
-                                    <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
-                                    Logout
-                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                 @csrf
+                                    <button type="submit" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+                                        <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
+                                        Logout
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -351,9 +350,9 @@
         <!-- Amount -->
         <p class="font-bold text-red-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
     </div>
-
-    <!-- Pay Now Form -->
-    <form method="POST" action="">
+    
+    @if($sam->zz === auth()->user()->id)
+    <form method="POST" action="{{ Route('pay.expense') }}">
         @csrf
         <!-- Hidden Input with Payment ID -->
         <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
@@ -361,6 +360,7 @@
             Pay Now
         </button>
     </form>
+    @endif
 </div>
 @endforeach
     </div>
@@ -423,11 +423,13 @@
                     <p class="text-gray-500 mb-6 max-w-sm mx-auto">
                         Start adding expenses to see history and statistics here.
                     </p>
+                    @if($expenses)
                     <button onclick="openModal('expenseModal')"
                         class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition shadow-md">
                         <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Add Expense
                     </button>
+                    @endif
                 </div>
 
                 @endif
@@ -472,42 +474,6 @@
                 </div>
                 @endif
             </div>
-
-        <!-- Quick Actions Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover flex items-center gap-4 cursor-pointer group" onclick="openModal('joinModal')">
-                <div class="p-3 bg-green-100 rounded-xl group-hover:bg-green-200 transition">
-                    <i data-lucide="log-in" class="w-6 h-6 text-green-600"></i>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition">Join a Home</h4>
-                    <p class="text-sm text-gray-500">Use invitation token</p>
-                </div>
-                <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400 ml-auto group-hover:text-primary-600 transition"></i>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover flex items-center gap-4 cursor-pointer group">
-                <div class="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition">
-                    <i data-lucide="help-circle" class="w-6 h-6 text-blue-600"></i>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition">Help Center</h4>
-                    <p class="text-sm text-gray-500">Guides & FAQ</p>
-                </div>
-                <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400 ml-auto group-hover:text-primary-600 transition"></i>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 card-hover flex items-center gap-4 cursor-pointer group">
-                <div class="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition">
-                    <i data-lucide="mail" class="w-6 h-6 text-purple-600"></i>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition">Contact Support</h4>
-                    <p class="text-sm text-gray-500">Have a question?</p>
-                </div>
-                <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400 ml-auto group-hover:text-primary-600 transition"></i>
-            </div>
-        </div>
 
     </main>
 

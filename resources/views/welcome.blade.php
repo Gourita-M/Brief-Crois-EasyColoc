@@ -120,9 +120,7 @@
                         <a href="Accommodation" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
                             Create My Shared Home
                         </a>
-                        <a href="Accommodation/user" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
-                            Join A Shared Home
-                        </a>
+                       
                     </div>
                     
                     <!-- Social Proof -->
@@ -395,7 +393,7 @@
                     <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to simplify your shared housing?</h2>
                     <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">Join thousands of roommates managing their expenses stress-free. It's free and takes 2 minutes.</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
+                        <a href="Accommodation" class="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-all transform hover:scale-105 shadow-xl">
                             Create My Free Shared Home
                         </a>
                         <a href="#" class="px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transition-all">
