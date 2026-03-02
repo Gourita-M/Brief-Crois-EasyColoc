@@ -1,4 +1,5 @@
 {{ auth()->user()->name}}
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -109,12 +110,15 @@
                     </div>
                     <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">EasyColoc</span>
                 </a>
-
+         
                 <!-- Right Side -->
                 <div class="flex items-center space-x-4">
+            
+                @if($accommodationinfo)
                    <form method="POST" action="{{ Route('leave.accommodation') }}">
                     @csrf
-        
+                  
+                    <input name="owner_id" value="{{$accommodationinfo->members_id}}" type="text" hidden>
                     <button 
                         type="submit"
                         onclick="return confirm('Are you sure you want to leave this accommodation?')"
@@ -129,7 +133,7 @@
                         Leave Accommodation
                     </button>
                 </form>
-
+            @endif
                     <div class="relative inline-block">
 
                         <!-- Button -->
@@ -176,36 +180,80 @@
 
                     <!-- User Profile Dropdown -->
                     <div class="relative" id="userDropdown">
-                        <button onclick="toggleDropdown()" class="flex items-center space-x-3 pl-3 border-l border-slate-200 hover:bg-slate-50 rounded-lg py-1 pr-1 transition">
-                            <img src="https://i.pravatar.cc/150?img=11" alt="User" class="w-10 h-10 rounded-full border-2 border-indigo-500 shadow-sm object-cover">
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 hidden sm:block"></i>
-                        </button>
+    <button 
+        onclick="toggleDropdown()" 
+        class="flex items-center gap-3 pl-4 pr-3 py-2 
+               border-l border-slate-200
+               hover:bg-slate-100 
+               rounded-xl 
+               transition-all duration-200
+               group"
+    >
 
-                        <!-- Dropdown Menu -->
-                        <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50">
-                            <div class="px-4 py-3 border-b border-slate-100">
-                                <p class="text-sm font-semibold text-slate-900">John Doe</p>
-                                <p class="text-xs text-slate-500">john.doe@example.com</p>
-                            </div>
-                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition">
-                                <i data-lucide="user" class="w-4 h-4 mr-3 text-slate-400"></i>
-                                Profile
-                            </a>
-                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition">
-                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-slate-400"></i>
-                                Settings
-                            </a>
-                            <div class="border-t border-slate-100 mt-1 pt-1">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
-                                        <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
-                                        Logout
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Avatar Circle -->
+        <div class="w-9 h-9 rounded-full bg-indigo-500 text-white 
+                    flex items-center justify-center 
+                    font-semibold text-sm shadow-sm">
+            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+        </div>
+
+        <!-- Name -->
+        <div class="hidden sm:flex flex-col text-left">
+            <p class="text-sm font-semibold text-slate-700 group-hover:text-indigo-600 transition">
+                {{ auth()->user()->name }}
+            </p>
+            <p class="text-xs text-slate-400">
+                Account
+            </p>
+        </div>
+
+        <i data-lucide="chevron-down" 
+           class="w-4 h-4 text-slate-400 transition-transform duration-200 group-hover:rotate-180">
+        </i>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div id="dropdownMenu" 
+         class="hidden absolute right-0 mt-3 w-56 
+                bg-white rounded-2xl 
+                shadow-xl border border-slate-100 
+                py-2 z-50
+                backdrop-blur-sm">
+
+        <!-- User Info -->
+        <div class="px-4 py-3 border-b border-slate-100">
+            <p class="text-sm font-semibold text-slate-700">
+                {{ auth()->user()->name }}
+            </p>
+            <p class="text-xs text-slate-500 truncate">
+                {{ auth()->user()->email }}
+            </p>
+        </div>
+
+        <!-- Profile -->
+        <a href="#" 
+           class="flex items-center px-4 py-2.5 text-sm 
+                  text-slate-700 hover:bg-slate-100 
+                  transition-all duration-200 rounded-lg mx-2">
+            <i data-lucide="user" class="w-4 h-4 mr-3 text-slate-400"></i>
+            Profile
+        </a>
+
+        <!-- Logout -->
+        <div class="mt-1 pt-1 border-t border-slate-100">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" 
+                        class="w-full flex items-center px-4 py-2.5 text-sm 
+                               text-red-600 hover:bg-red-50 
+                               transition-all duration-200 rounded-lg mx-2">
+                    <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -388,11 +436,13 @@
                     <p class="text-slate-500 mb-6 max-w-sm mx-auto">
                         Start adding expenses to see history and statistics here.
                     </p>
+                     @if($expenses)
                     <button onclick="openModal('expenseModal')"
                         class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition shadow-md">
                         <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                         Add Expense
                     </button>
+                    @endif
                 </div>
 
                 @endif
@@ -637,29 +687,41 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-2">Category</label>
+                        <!-- New Category -->
+                        <label class="block text-sm font-medium text-slate-700 mb-2">
+                            New Category :
+                        </label>
+
+                        <input
+                            id="newCategoryInput"
+                            type="text"
+                            name="category"
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl 
+               focus:ring-2 focus:ring-violet-500 focus:border-transparent 
+               outline-none transition"
+                            placeholder="Create new category...">
+
+                        <!-- Category Selection -->
+                        <label class="block text-sm font-medium text-slate-700 mt-6 mb-2">
+                            Category
+                        </label>
+
                         <div class="grid grid-cols-3 gap-2">
+
+                            <!-- Rent -->
                             <label class="cursor-pointer">
-                                <input value="1" type="radio" name="category" class="peer sr-only" checked>
-                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 text-center transition hover:border-purple-300">
-                                    <i data-lucide="home" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-purple-600"></i>
+                                <input value="rent" type="radio" name="category_id"
+                                    class="peer sr-only categoryRadio">
+                                <div class="p-3 rounded-xl border-2 border-slate-200 
+                        peer-checked:border-violet-500 
+                        peer-checked:bg-violet-50 
+                        text-center transition 
+                        hover:border-violet-300">
+                                   
                                     <span class="text-xs font-medium">Rent</span>
                                 </div>
                             </label>
-                            <label class="cursor-pointer">
-                                <input value="1" type="radio" name="category" class="peer sr-only">
-                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 text-center transition hover:border-purple-300">
-                                    <i data-lucide="shopping-cart" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-purple-600"></i>
-                                    <span class="text-xs font-medium">Groceries</span>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer">
-                                <input value="1" type="radio" name="category" class="peer sr-only">
-                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-purple-500 peer-checked:bg-purple-50 text-center transition hover:border-purple-300">
-                                    <i data-lucide="zap" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-purple-600"></i>
-                                    <span class="text-xs font-medium">Bills</span>
-                                </div>
-                            </label>
+
                         </div>
                     </div>
 
@@ -772,6 +834,25 @@
                 popup.classList.add('opacity-0');
             }, 10000);
         });
+
+        const radios = document.querySelectorAll('.categoryRadio');
+    const newCategoryInput = document.getElementById('newCategoryInput');
+
+    // When radio is selected → disable input
+    radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            newCategoryInput.disabled = true;
+            newCategoryInput.value = '';
+            newCategoryInput.classList.add('bg-slate-100', 'cursor-not-allowed');
+        });
+    });
+
+    // When user types → uncheck radios and enable input
+    newCategoryInput.addEventListener('input', () => {
+        radios.forEach(radio => radio.checked = false);
+        newCategoryInput.disabled = false;
+        newCategoryInput.classList.remove('bg-slate-100', 'cursor-not-allowed');
+    });
     </script>
 </body>
 

@@ -6,18 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Accommodations;
-use App\Models\Persons;
+use App\Models\Members;
 use App\Models\Memberships;
 use App\Models\Expenses;
 use App\Models\Payments;
+use App\Models\Categories;
 
 class OwnerDashboardController extends Controller
 {
     public function index()
     {
-        $person = Persons::where('users_id', auth::user()->id)->first();
+        $person = Members::where('users_id', auth::user()->id)->first();
 
-        $accommodation = Accommodations::where('persons_id', $person->id)
+        $categories = Categories::get();
+
+        $accommodation = Accommodations::where('members_id', $person->id)
                                         ->where('status', 'Active')->first();
         if($accommodation){
 
@@ -26,7 +29,7 @@ class OwnerDashboardController extends Controller
                                         ->count();
 
         $expenses = $expenses = DB::table('expenses as e')
-            ->join('persons as p','p.id','=','e.persons_id')
+            ->join('members as p','p.id','=','e.members_id')
             ->join('users as u', 'p.users_id','=','u.id')
             ->select('e.*','u.name')
             ->where('e.accommodations_id', $accommodation->id)
@@ -34,9 +37,9 @@ class OwnerDashboardController extends Controller
 
         $sum = DB::table('payments as p')
             ->join('expenses as e', 'p.expenses_id', '=', 'e.id')
-            ->join('persons as member', 'p.persons_id', '=', 'member.id')
+            ->join('members as member', 'p.members_id', '=', 'member.id')
             ->join('users as member_user', 'member.users_id', '=', 'member_user.id')
-            ->join('persons as creator', 'e.persons_id', '=', 'creator.id')
+            ->join('members as creator', 'e.members_id', '=', 'creator.id')
             ->join('users as creator_user', 'creator.users_id', '=', 'creator_user.id')
             ->where('p.status', 0)
             ->where('e.accommodations_id', $accommodation->id)
@@ -49,18 +52,18 @@ class OwnerDashboardController extends Controller
                 'p.amount as total_owed'
             )
             ->get();
-             $membership = Memberships::where('persons_id', $person->id)
+             $membership = Memberships::where('members_id', $person->id)
                                 ->where('role', 'Owner')->first();
        
 
             $members = DB::table('memberships as m')
-            ->leftJoin('persons as p', 'm.persons_id', '=', 'p.id')
+            ->leftJoin('members as p', 'm.members_id', '=', 'p.id')
             ->leftJoin('users as u', 'p.users_id', '=', 'u.id')
             ->where('m.accommodations_id', $membership->accommodations_id)
             ->select(
                 'm.id as membership_id',
                 'p.role',
-                'm.persons_id',
+                'm.members_id',
                 'p.users_id as person_users_id',
                 'u.id as user_id',
                 'u.name'
@@ -68,7 +71,7 @@ class OwnerDashboardController extends Controller
             ->get();
             
         
-            return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members','membership', 'person'));
+            return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members','membership', 'person', 'categories'));
         
         }else{
 

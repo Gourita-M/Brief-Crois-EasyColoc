@@ -14,7 +14,7 @@ class Payments extends Model
         'amount',
         'status',
         'expenses_id',
-        'persons_id',
+        'members_id',
         'paid_at',
     ];
 
@@ -23,8 +23,8 @@ class Payments extends Model
         return $this->belongsTo(Expenses::class);
     }
 
-    public function persons()
+    public function members()
     {
-        return $this->belongsTo(Persons::class);
+        return $this->belongsTo(Members::class);
     }
 }

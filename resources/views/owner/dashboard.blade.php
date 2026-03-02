@@ -1,4 +1,5 @@
 {{ auth()->user()->name}}
+{{$categories}}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -112,24 +113,8 @@
 
                 <!-- Right Side -->
                 <div class="flex items-center space-x-4">
-                    
-                <form method="POST" action="">
-                    @csrf
-        
-                    <button 
-                        type="submit"
-                        onclick="return confirm('Are you sure you want to leave this accommodation?')"
-                        class="px-5 py-2 rounded-xl 
-                            bg-red-500 text-white font-semibold
-                            hover:bg-red-600 
-                            transition-all duration-200
-                            shadow-md hover:shadow-lg
-                            hover:scale-105
-                            focus:outline-none focus:ring-2 focus:ring-red-400"
-                    >
-                        Leave Accommodation
-                    </button>
-                </form>
+
+
                     <div class="relative inline-block">
 
                         <!-- Button -->
@@ -176,30 +161,72 @@
 
                     <!-- User Profile Dropdown -->
                     <div class="relative" id="userDropdown">
-                        <button onclick="toggleDropdown()" class="flex items-center space-x-3 pl-3 border-l border-slate-200 hover:bg-slate-50 rounded-lg py-1 pr-1 transition">
+                        <button
+                            onclick="toggleDropdown()"
+                            class="flex items-center gap-3 pl-4 pr-3 py-2 
+               border-l border-slate-200
+               hover:bg-slate-100 
+               rounded-xl 
+               transition-all duration-200
+               group">
 
-                            <img src="https://i.pravatar.cc/150?img=11" alt="User" class="w-10 h-10 rounded-full border-2 border-indigo-500 shadow-sm object-cover">
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 hidden sm:block"></i>
+                            <!-- Avatar Circle -->
+                            <div class="w-9 h-9 rounded-full bg-indigo-500 text-white 
+                    flex items-center justify-center 
+                    font-semibold text-sm shadow-sm">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </div>
+
+                            <!-- Name -->
+                            <div class="hidden sm:flex flex-col text-left">
+                                <p class="text-sm font-semibold text-slate-700 group-hover:text-indigo-600 transition">
+                                    {{ auth()->user()->name }}
+                                </p>
+                                <p class="text-xs text-slate-400">
+                                    Account
+                                </p>
+                            </div>
+
+                            <i data-lucide="chevron-down"
+                                class="w-4 h-4 text-slate-400 transition-transform duration-200 group-hover:rotate-180">
+                            </i>
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50">
+                        <div id="dropdownMenu"
+                            class="hidden absolute right-0 mt-3 w-56 
+                bg-white rounded-2xl 
+                shadow-xl border border-slate-100 
+                py-2 z-50
+                backdrop-blur-sm">
+
+                            <!-- User Info -->
                             <div class="px-4 py-3 border-b border-slate-100">
-                                <p class="text-sm font-semibold text-slate-900">John Doe</p>
-                                <p class="text-xs text-slate-500">john.doe@example.com</p>
+                                <p class="text-sm font-semibold text-slate-700">
+                                    {{ auth()->user()->name }}
+                                </p>
+                                <p class="text-xs text-slate-500 truncate">
+                                    {{ auth()->user()->email }}
+                                </p>
                             </div>
-                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition">
+
+                            <!-- Profile -->
+                            <a href="#"
+                                class="flex items-center px-4 py-2.5 text-sm 
+                  text-slate-700 hover:bg-slate-100 
+                  transition-all duration-200 rounded-lg mx-2">
                                 <i data-lucide="user" class="w-4 h-4 mr-3 text-slate-400"></i>
                                 Profile
                             </a>
-                            <a href="#" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition">
-                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-slate-400"></i>
-                                Settings
-                            </a>
-                            <div class="border-t border-slate-100 mt-1 pt-1">
+
+                            <!-- Logout -->
+                            <div class="mt-1 pt-1 border-t border-slate-100">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+                                    <button type="submit"
+                                        class="w-full flex items-center px-4 py-2.5 text-sm 
+                               text-red-600 hover:bg-red-50 
+                               transition-all duration-200 rounded-lg mx-2">
                                         <i data-lucide="log-out" class="w-4 h-4 mr-3 text-red-500"></i>
                                         Logout
                                     </button>
@@ -244,12 +271,12 @@
             </div>
             <!-- 🔹 END Token Area -->
             <button onclick="document.getElementById('inviteEmailForm').classList.toggle('hidden')"
-               class="px-4 py-2 bg-white text-indigo-600 border border-indigo-200 rounded-xl font-medium hover:bg-slate-50 transition">
+                class="px-4 py-2 bg-white text-indigo-600 border border-indigo-200 rounded-xl font-medium hover:bg-slate-50 transition">
                 Invite by Email
             </button>
-            <form id="inviteEmailForm" method="POST" action="{{Route('Email.Sent')}}" 
+            <form id="inviteEmailForm" method="POST" action="{{Route('Email.Sent')}}"
                 class="hidden mt-4 flex gap-3 items-center">
-                
+
                 @csrf
 
                 <input type="email" name="email" required placeholder="Enter member email"
@@ -260,7 +287,7 @@
                     Send Invite
                 </button>
             </form>
-            
+
         </div>
         @else
         <!-- Welcome Banner -->
@@ -330,58 +357,58 @@
 
         <!-- Main Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
 
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-4">
-        <div class="p-3 bg-indigo-100 rounded-xl">
-            <i data-lucide="users" class="w-6 h-6 text-indigo-600"></i>
-        </div>
-        <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-            Home
-        </span>
-    </div>
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-indigo-100 rounded-xl">
+                        <i data-lucide="users" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
+                        Home
+                    </span>
+                </div>
 
-    <p class="text-sm text-slate-500 mb-4">Members Balances</p>
+                <p class="text-sm text-slate-500 mb-4">Members Balances</p>
 
-    <div class="space-y-4">
+                <div class="space-y-4">
 
-        <!-- Member Owes -->
-       @foreach($sum as $sam)
-<div class="bg-rose-50 border border-rose-100 p-4 rounded-xl">
-    <div class="flex justify-between items-start">
-        <div>
-            <!-- Member Name -->
-            <h1 class="font-medium text-slate-900">{{ $sam->member_name }}</h1>
-            
-            <!-- Expense Info -->
-            <p class="text-xs text-slate-500">Needs to pay for</p>
-            <p class="font-medium text-xs text-slate-900">{{ $sam->expense_title }}</p>
+                    <!-- Member Owes -->
+                    @foreach($sum as $sam)
+                    <div class="bg-rose-50 border border-rose-100 p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <!-- Member Name -->
+                                <h1 class="font-medium text-slate-900">{{ $sam->member_name }}</h1>
 
-            <!-- Expense Creator -->
-            <p class="text-xs text-slate-500">To</p>
-            <h2 class="font-medium text-xs text-slate-900">{{ $sam->expense_creator }}</h2>
-        </div>
+                                <!-- Expense Info -->
+                                <p class="text-xs text-slate-500">Needs to pay for</p>
+                                <p class="font-medium text-xs text-slate-900">{{ $sam->expense_title }}</p>
 
-        <!-- Amount -->
-        <p class="font-bold text-rose-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
-    </div>
-    
-    @if($sam->zz === auth()->user()->id)
-    <form method="POST" action="{{ Route('pay.expense') }}">
-        @csrf
-        <!-- Hidden Input with Payment ID -->
-        <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
-        <button type="submit" class="mt-3 w-full py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition shadow">
-            Pay Now
-        </button>
-    </form>
-    @endif
-</div>
-@endforeach
-    </div>
+                                <!-- Expense Creator -->
+                                <p class="text-xs text-slate-500">To</p>
+                                <h2 class="font-medium text-xs text-slate-900">{{ $sam->expense_creator }}</h2>
+                            </div>
 
-</div>
+                            <!-- Amount -->
+                            <p class="font-bold text-rose-600">{{ number_format($sam->total_owed, 2) }} MAD</p>
+                        </div>
+
+                        @if($sam->zz === auth()->user()->id)
+                        <form method="POST" action="{{ Route('pay.expense') }}">
+                            @csrf
+                            <!-- Hidden Input with Payment ID -->
+                            <input type="hidden" name="payment_id" value="{{ $sam->payment_id }}">
+                            <button type="submit" class="mt-3 w-full py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition shadow">
+                                Pay Now
+                            </button>
+                        </form>
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+
+            </div>
             <!-- Recent Expenses -->
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden card-hover">
                 <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
@@ -451,89 +478,88 @@
                 @endif
             </div>
 
-           <div class="bg-gradient-to-br from-indigo-600 to-purple-700 
+            <div class="bg-gradient-to-br from-indigo-600 to-purple-700 
             text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
 
- @if($accommodation)
+                @if($accommodation)
 
-    <!-- Header -->
-    <div class="mb-4">
-        <h2 class="text-xl font-bold tracking-wide">
-            {{ $accommodationinfo->name ?? 'Accommodation Members' }}
-        </h2>
-        <p class="text-sm text-indigo-100">
-            Manage members and roles
-        </p>
-    </div>
+                <!-- Header -->
+                <div class="mb-4">
+                    <h2 class="text-xl font-bold tracking-wide">
+                        {{ $accommodationinfo->name ?? 'Accommodation Members' }}
+                    </h2>
+                    <p class="text-sm text-indigo-100">
+                        Manage members and roles
+                    </p>
+                </div>
 
-    <!-- Members List -->
-    <div class="space-y-3 max-h-64 overflow-y-auto pr-2">
+                <!-- Members List -->
+                <div class="space-y-3 max-h-64 overflow-y-auto pr-2">
 
-        @foreach($members as $membership)
+                    @foreach($members as $membership)
 
-            <div class="flex items-center justify-between 
+                    <div class="flex items-center justify-between 
                         bg-white/10 hover:bg-white/20 
                         transition-all duration-200
                         px-4 py-3 rounded-xl backdrop-blur-sm">
 
-                <!-- Left: Name -->
-                <div>
-                    <p class="font-semibold text-white">
-                        {{ $membership->name }}
-                    </p>
-                </div>
+                        <!-- Left: Name -->
+                        <div>
+                            <p class="font-semibold text-white">
+                                {{ $membership->name }}
+                            </p>
+                        </div>
 
-                <!-- Right: Role + Action -->
-                <div class="flex items-center gap-4">
+                        <!-- Right: Role + Action -->
+                        <div class="flex items-center gap-4">
 
-                    <!-- Role Badge -->
-                    <span class="
+                            <!-- Role Badge -->
+                            <span class="
                         px-3 py-1 text-xs font-semibold rounded-full
                         {{ $membership->role === 'Owner'
                             ? 'bg-emerald-100 text-emerald-700'
                             : 'bg-pink-100 text-pink-600'
                         }}
                     ">
-                        {{ $membership->role }}
-                    </span>
-                    <!-- Remove Button -->
-                    @if($membership->role === 'Member' && $person->role === 'Owner')
-                        <form method="POST" action="{{ Route('remove.member')}}">
-                            @csrf
-                            
-                            <input name="member_id" value="{{$membership->persons_id}}" type="text" hidden>
-                            <input name="member_name" value="{{ $membership->name }}" type="text" hidden>
+                                {{ $membership->role }}
+                            </span>
+                            <!-- Remove Button -->
+                            @if($membership->role === 'Member' && $person->role === 'Owner')
+                            <form method="POST" action="{{ Route('remove.member')}}">
+                                @csrf
 
-                            
+                                <input name="member_id" value="{{$membership->members_id}}" type="text" hidden>
+                                <input name="member_name" value="{{ $membership->name }}" type="text" hidden>
 
-                            <button 
-                                type="submit"
-                                class="w-8 h-8 flex items-center justify-center
+
+
+                                <button
+                                    type="submit"
+                                    class="w-8 h-8 flex items-center justify-center
                                     rounded-full bg-red-100 text-red-600
                                     hover:bg-red-600 hover:text-white
                                     hover:scale-110 
                                     transition-all duration-200
                                     shadow-sm hover:shadow-md
-                                    focus:outline-none focus:ring-2 focus:ring-red-400"
-                            >
-                                <!-- Using an SVG X icon for better style -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </form>
-                    @endif
+                                    focus:outline-none focus:ring-2 focus:ring-red-400">
+                                    <!-- Using an SVG X icon for better style -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @endif
+
+                        </div>
+                    </div>
+
+                    @endforeach
 
                 </div>
+
+                @endif
             </div>
 
-        @endforeach
-
-    </div>
-
-@endif
-</div>
-                    
     </main>
 
     <!-- Footer -->
@@ -687,37 +713,45 @@
                                     class="w-full pl-8 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition">
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Date</label>
-                            <input type="date"
-                                class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition">
-                        </div>
+
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-2">Category</label>
+                        <!-- New Category -->
+                        <label class="block text-sm font-medium text-slate-700 mb-2">
+                            New Category :
+                        </label>
+
+                        <input
+                            id="newCategoryInput"
+                            type="text"
+                            name="category"
+                            class="w-full px-4 py-3 border border-slate-300 rounded-xl 
+               focus:ring-2 focus:ring-violet-500 focus:border-transparent 
+               outline-none transition"
+                            placeholder="Create new category...">
+
+                        <!-- Category Selection -->
+                        <label class="block text-sm font-medium text-slate-700 mt-6 mb-2">
+                            Category
+                        </label>
+
                         <div class="grid grid-cols-3 gap-2">
+
+                            <!-- Rent -->
                             <label class="cursor-pointer">
-                                <input value="1" type="radio" name="category" class="peer sr-only" checked>
-                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-violet-500 peer-checked:bg-violet-50 text-center transition hover:border-violet-300">
-                                    <i data-lucide="home" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-violet-600"></i>
+                                <input value="rent" type="radio" name="category_id"
+                                    class="peer sr-only categoryRadio">
+                                <div class="p-3 rounded-xl border-2 border-slate-200 
+                        peer-checked:border-violet-500 
+                        peer-checked:bg-violet-50 
+                        text-center transition 
+                        hover:border-violet-300">
+                                   
                                     <span class="text-xs font-medium">Rent</span>
                                 </div>
                             </label>
-                            <label class="cursor-pointer">
-                                <input value="1" type="radio" name="category" class="peer sr-only">
-                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-violet-500 peer-checked:bg-violet-50 text-center transition hover:border-violet-300">
-                                    <i data-lucide="shopping-cart" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-violet-600"></i>
-                                    <span class="text-xs font-medium">Groceries</span>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer">
-                                <input value="1" type="radio" name="category" class="peer sr-only">
-                                <div class="p-3 rounded-xl border-2 border-slate-200 peer-checked:border-violet-500 peer-checked:bg-violet-50 text-center transition hover:border-violet-300">
-                                    <i data-lucide="zap" class="w-5 h-5 mx-auto mb-1 text-slate-600 peer-checked:text-violet-600"></i>
-                                    <span class="text-xs font-medium">Bills</span>
-                                </div>
-                            </label>
+
                         </div>
                     </div>
 
@@ -829,6 +863,25 @@
                 popup.classList.remove('opacity-100');
                 popup.classList.add('opacity-0');
             }, 10000);
+        });
+
+        const radios = document.querySelectorAll('.categoryRadio');
+        const newCategoryInput = document.getElementById('newCategoryInput');
+
+        // When radio is selected → disable input
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                newCategoryInput.disabled = true;
+                newCategoryInput.value = '';
+                newCategoryInput.classList.add('bg-slate-100', 'cursor-not-allowed');
+            });
+        });
+
+        // When user types → uncheck radios and enable input
+        newCategoryInput.addEventListener('input', () => {
+            radios.forEach(radio => radio.checked = false);
+            newCategoryInput.disabled = false;
+            newCategoryInput.classList.remove('bg-slate-100', 'cursor-not-allowed');
         });
     </script>
 </body>

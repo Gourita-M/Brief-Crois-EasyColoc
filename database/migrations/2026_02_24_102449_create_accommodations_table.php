@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('adress');
             $table->string('status');
             $table->string('local_token');
-            $table->foreignId('persons_id')
+            $table->foreignId('members_id')
             ->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use App\Models\Admins;
-use App\Models\Persons;
+use App\Models\Members;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -59,7 +59,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        Persons::create([
+        Members::create([
                 'users_id' => $user->id,
                 'role' => 'Member',
                 'is_banned' => 0,

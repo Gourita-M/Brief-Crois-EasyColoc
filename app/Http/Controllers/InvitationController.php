@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvitationMail;
 use Illuminate\Support\Str;
-use App\Models\Persons;
+use App\Models\Members;
 use App\Models\Accommodations;
 use App\Models\Invitations;
 use App\Models\Memberships;
@@ -20,9 +20,9 @@ class InvitationController extends Controller
         
         $token = Str::random(30);
 
-        $person = Persons::where('users_id', auth::user()->id)->first();
+        $person = Members::where('users_id', auth::user()->id)->first();
 
-        $Accommodation = Accommodations::where('persons_id', $person->id)
+        $Accommodation = Accommodations::where('members_id', $person->id)
                                                 ->where('status', 'Active')->first();
 
 
@@ -45,7 +45,7 @@ class InvitationController extends Controller
                         ->first();
 
     $accommodationinfo = DB::table('accommodations as a')
-                            ->leftjoin('persons as p', 'a.persons_id','=','p.id')
+                            ->leftjoin('members as p', 'a.members_id','=','p.id')
                             ->leftjoin('users as u', 'p.users_id', '=','u.id')
                             ->where('a.id', $accommodationId->accommodations_id)
                             ->select('a.id','a.name as accomm', 'u.name')
@@ -58,9 +58,9 @@ class InvitationController extends Controller
     public function acceptInvitation(Request $request)
     {
     
-        $person = Persons::where('users_id', auth::user()->id)->first();
+        $person = Members::where('users_id', auth::user()->id)->first();
 
-        $memberexist = Memberships::where('persons_id', $person->id)
+        $memberexist = Memberships::where('members_id', $person->id)
                                 ->where('is_active', 1)
                                 ->first();
         if($memberexist){
@@ -76,7 +76,7 @@ class InvitationController extends Controller
             'is_active' => 1,
             'left_at' => null ,
             'accommodations_id' => $request['accommo_id'],
-            'persons_id' => $person->id,
+            'members_id' => $person->id,
         ]);
 
         return redirect('/Accommodation/user')->with('success', 'You Have Successfully Joined ');

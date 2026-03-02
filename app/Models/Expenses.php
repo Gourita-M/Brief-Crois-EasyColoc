@@ -16,7 +16,7 @@ class Expenses extends Model
         'amount',
         'accommodations_id',
         'categories_id',
-        'persons_id',
+        'members_id',
     ];
 
     public function expenses()

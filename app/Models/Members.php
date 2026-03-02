@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Persons extends Model
+class Members extends Model
 {
     
 

@@ -15,13 +15,13 @@ class Memberships extends Model
         'role',
         'is_active',
         'left_at',
-        'persons_id',
+        'members_id',
         'accommodations_id',
     ];
 
-      public function Persons()
+      public function members()
     {
-        return $this->belongsTo(Persons::class);
+        return $this->belongsTo(Members::class);
     }
 
      public function accommodations()

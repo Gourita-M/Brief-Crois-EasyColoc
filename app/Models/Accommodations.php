@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Persons;
+use App\Models\Members;
 use App\Models\Memberships;
 use App\Models\Invitations;
 use App\Models\Expenses;
@@ -16,13 +16,13 @@ class Accommodations extends Model
         'name',
         'status',
         'adress',
-        'persons_id',
+        'members_id',
         'local_token',
     ];
 
-    public function persons()
+    public function members()
     {
-        return $this->belongsTo(Persons::class);
+        return $this->belongsTo(Members::class);
     }
 
     public function memberships()

@@ -46,4 +46,4 @@ Route::POST('/PayExpense', [PaymentController::class, 'payAnExpense'])->name('pa
 
 Route::POST('/Remove/Member', [MembershipController::class, 'removeMember'])->name('remove.member');
 
-Route::POST('/Leave', [AccommodationController::class, 'leaveAccommodation'])->name('leave.accommodation');
+Route::POST('/Leave', [MembershipController::class, 'leaveMembership'])->name('leave.accommodation');

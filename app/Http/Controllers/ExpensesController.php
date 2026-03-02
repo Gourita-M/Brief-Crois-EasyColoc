@@ -7,28 +7,34 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Expenses;
 use App\Models\Payments;
-use App\Models\Persons;
+use App\Models\Members;
 use App\Models\Memberships;
+use App\Models\Categories;
 
 class ExpensesController extends Controller
 {
     public function createExpense(Request $request)
     {
     
-        $person = Persons::where('users_id', auth::user()->id)->first();
+        $person = Members::where('users_id', auth::user()->id)->first();
         
         $expense = $request->validate([
             'title' => 'required|max:255',
             'amount' => 'required',
-            'category' => 'required',
         ]);
 
+        if($request['category']){
+            Categories::create([
+                'name' => $request['category'],
+            ]);
+        }
+        dd('haa');
         $expense = Expenses::create([
             'title' => $expense['title'],
             'amount' => $expense['amount'],
             'accommodations_id' => $request->accommo_id,
             'categories_id' => $expense['category'],
-            'persons_id' => $person->id,
+            'members_id' => $person->id,
         ]);
 
         $count = Memberships::Where('accommodations_id', $request->accommo_id)
@@ -46,14 +52,14 @@ class ExpensesController extends Controller
 
         $status = False;
         
-            if($person->id === $members[$i]->persons_id)
+            if($person->id === $members[$i]->members_id)
                 $status = True;
     
             Payments::create([
                 'amount' => $Paymentforeach,
                 'status' => $status ,
                 'expenses_id' => $expense->id,
-                'persons_id' => $members[$i]->persons_id,
+                'members_id' => $members[$i]->members_id,
                 'paid_at' => $localtime->toDateString(),
             ]);
         }

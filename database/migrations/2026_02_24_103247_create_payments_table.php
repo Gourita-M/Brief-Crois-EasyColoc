@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('status');
             $table->foreignId('expenses_id')
             ->constrained()->cascadeOnDelete();
-            $table->foreignId('persons_id')
+            $table->foreignId('members_id')
             ->constrained()->cascadeOnDelete();
             $table->dateTime('paid_at');
             $table->timestamps();

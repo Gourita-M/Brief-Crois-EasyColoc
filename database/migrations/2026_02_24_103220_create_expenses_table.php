@@ -19,7 +19,7 @@ return new class extends Migration
             ->constrained()->cascadeOnDelete();
             $table->foreignId('categories_id')
             ->constrained()->cascadeOnDelete();
-            $table->foreignId('persons_id')
+            $table->foreignId('members_id')
             ->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

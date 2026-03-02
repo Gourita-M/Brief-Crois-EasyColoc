@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Accommodations;
 use App\Models\Memberships;
 use App\Models\Invitations;
-use App\Models\Persons;
+use App\Models\Members;
 
 class AccommodationController extends Controller
 {
@@ -21,16 +21,16 @@ class AccommodationController extends Controller
             'adress' => 'string|max:250|required',
         ]);
 
-        $person = Persons::where('users_id', auth::user()->id)->first();
+        $person = Members::where('users_id', auth::user()->id)->first();
 
         $person->update([
             'role' => 'Owner',
         ]);
 
-        $Accommodationexists = Accommodations::where('persons_id', $person->id)
+        $Accommodationexists = Accommodations::where('members_id', $person->id)
                                                 ->where('status', 'Active')->exists();
 
-        $membershipp = Memberships::Where('persons_id', $person->id)
+        $membershipp = Memberships::Where('members_id', $person->id)
                                     ->where('is_active', 1)->exists();
 
         if($Accommodationexists){
@@ -44,7 +44,7 @@ class AccommodationController extends Controller
             'name' => $data['name'],
             'adress' => $data['adress'],
             'status' => 'Active',
-            'persons_id' => $person->id,
+            'members_id' => $person->id,
             'local_token' => $token,
         ]);
 
@@ -53,7 +53,7 @@ class AccommodationController extends Controller
             'is_active' => 1,
             'left_at' => null ,
             'accommodations_id' => $Accommodation->id,
-            'persons_id' => $person->id,
+            'members_id' => $person->id,
         ]);
 
         return Redirect('/Accommodation')->with('success', 'You Have Successfully Created a New Home');
@@ -62,7 +62,7 @@ class AccommodationController extends Controller
     public function joinAccommodation(Request $request)
     {
 
-        $person = Persons::where('users_id', auth::user()->id)->first();
+        $person = Members::where('users_id', auth::user()->id)->first();
 
         $token = $request->validate([
             'token' => 'string|min:30|required'
@@ -75,14 +75,11 @@ class AccommodationController extends Controller
             'is_active' => 1,
             'left_at' => null ,
             'accommodations_id' => $Accommodation->id,
-            'persons_id' => $person->id,
+            'members_id' => $person->id,
         ]);
 
-         return Redirect('/Accommodation/user')->with('success', 'You Have Successfully Joined ');
+        return Redirect('/Accommodation/user')->with('success', 'You Have Successfully Joined ');
+    
     }
 
-    public function leaveAccommodation()
-    {
-        dd('testing');
-    }
 }
