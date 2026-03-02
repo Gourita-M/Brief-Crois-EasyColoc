@@ -11,6 +11,7 @@ class Categories extends Model
 {
     protected $fillable = [
         'name',
+        'accommodations_id',
     ];
 
     public function expenses()

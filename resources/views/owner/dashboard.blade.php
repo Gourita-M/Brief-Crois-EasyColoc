@@ -275,7 +275,7 @@
                 Invite by Email
             </button>
             <form id="inviteEmailForm" method="POST" action="{{Route('Email.Sent')}}"
-                class="hidden mt-4 flex gap-3 items-center">
+                class="hidden mt-4 gap-3 items-center">
 
                 @csrf
 
@@ -739,8 +739,10 @@
                         <div class="grid grid-cols-3 gap-2">
 
                             <!-- Rent -->
+                        @if($categories)
+                            @foreach($categories as $categori)
                             <label class="cursor-pointer">
-                                <input value="rent" type="radio" name="category_id"
+                                <input value="{{$categori->id}}" type="radio" name="category_id"
                                     class="peer sr-only categoryRadio">
                                 <div class="p-3 rounded-xl border-2 border-slate-200 
                         peer-checked:border-violet-500 
@@ -748,13 +750,13 @@
                         text-center transition 
                         hover:border-violet-300">
                                    
-                                    <span class="text-xs font-medium">Rent</span>
+                                    <span class="text-xs font-medium">{{$categori->name}}</span>
                                 </div>
                             </label>
-
+                            @endforeach
+                        @endif
                         </div>
                     </div>
-
                     <div class="flex gap-3 pt-2">
                         <button type="button" onclick="closeModal('expenseModal')"
                             class="flex-1 px-4 py-3 border border-slate-300 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition">Cancel</button>

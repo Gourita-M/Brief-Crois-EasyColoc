@@ -28,15 +28,15 @@ class AccommodationController extends Controller
         ]);
 
         $Accommodationexists = Accommodations::where('members_id', $person->id)
-                                                ->where('status', 'Active')->exists();
+            ->where('status', 'Active')->exists();
 
         $membershipp = Memberships::Where('members_id', $person->id)
-                                    ->where('is_active', 1)->exists();
+            ->where('is_active', 1)->exists();
 
-        if($Accommodationexists){
+        if ($Accommodationexists) {
             return Redirect('/Accommodation')->with('failure', 'You already Have a Home.');
         }
-        if($membershipp){
+        if ($membershipp) {
             return Redirect('/Accommodation')->with('failure', 'You Are already Part of a Home.');
         }
 
@@ -51,7 +51,7 @@ class AccommodationController extends Controller
         Memberships::create([
             'role' => 'Owner',
             'is_active' => 1,
-            'left_at' => null ,
+            'left_at' => null,
             'accommodations_id' => $Accommodation->id,
             'members_id' => $person->id,
         ]);
@@ -69,17 +69,15 @@ class AccommodationController extends Controller
         ]);
 
         $Accommodation = Accommodations::Where('local_token', $token)
-                                        ->first();
+            ->first();
         Memberships::create([
             'role' => 'Member',
             'is_active' => 1,
-            'left_at' => null ,
+            'left_at' => null,
             'accommodations_id' => $Accommodation->id,
             'members_id' => $person->id,
         ]);
 
         return Redirect('/Accommodation/user')->with('success', 'You Have Successfully Joined ');
-    
     }
-
 }

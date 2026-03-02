@@ -17,34 +17,33 @@ class MembershipController extends Controller
     {
 
         $person = Members::where('users_id', auth::user()->id)->first();
-        
+
         Payments::where('members_id', $request['member_id'])
-                ->where('status', false)
-                ->update([
-                    'members_id' => $person->id,
-                ]);
+            ->where('status', false)
+            ->update([
+                'members_id' => $person->id,
+            ]);
 
         memberships::Where('members_id', $request['member_id'])
-                ->delete();
+            ->delete();
 
         return Redirect('/Accommodation')->with('success', "You Have Successfully Removed {$request['member_name']}");
-    
     }
 
     public function leaveMembership(Request $request)
     {
         $person = Members::where('users_id', auth::user()->id)->first();
-        
-        
+
+
         Payments::where('members_id', $person->id)
-                ->where('status', false)
-                ->update([
-                    'members_id' => $request['owner_id'],
-                ]);
+            ->where('status', false)
+            ->update([
+                'members_id' => $request['owner_id'],
+            ]);
 
         memberships::Where('members_id', $person->id)
-                ->delete();
-    
+            ->delete();
+
         return Redirect('/Accommodation')->with('success', 'You Have Left Accommodation Successfuly');
     }
 }

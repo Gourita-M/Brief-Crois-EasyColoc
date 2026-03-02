@@ -709,8 +709,10 @@
                         <div class="grid grid-cols-3 gap-2">
 
                             <!-- Rent -->
+                            @if($categories)
+                            @foreach($categories as $categori)
                             <label class="cursor-pointer">
-                                <input value="rent" type="radio" name="category_id"
+                                <input value="{{$categori->id}}" type="radio" name="category_id"
                                     class="peer sr-only categoryRadio">
                                 <div class="p-3 rounded-xl border-2 border-slate-200 
                         peer-checked:border-violet-500 
@@ -718,9 +720,11 @@
                         text-center transition 
                         hover:border-violet-300">
                                    
-                                    <span class="text-xs font-medium">Rent</span>
+                                    <span class="text-xs font-medium">{{$categori->name}}</span>
                                 </div>
                             </label>
+                            @endforeach
+                        @endif
 
                         </div>
                     </div>

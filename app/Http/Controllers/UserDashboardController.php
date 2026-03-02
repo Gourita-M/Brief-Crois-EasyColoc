@@ -10,6 +10,7 @@ use App\Models\Members;
 use App\Models\Memberships;
 use App\Models\Expenses;
 use App\Models\Payments;
+use App\Models\Categories;
 
 class UserDashboardController extends Controller
 {
@@ -38,6 +39,8 @@ class UserDashboardController extends Controller
 
         $accommodationinfo = Accommodations::where('id', $membership->accommodations_id)->first();
 
+        $categories = Categories::Where('accommodations_id', $accommodationinfo->id)->get();
+
         $expenses = DB::table('expenses as e')
             ->join('members as p','p.id','=','e.members_id')
             ->join('users as u', 'p.users_id','=','u.id')
@@ -63,15 +66,16 @@ class UserDashboardController extends Controller
             )
             ->get();
 
-        return View('owner.userdashboard', Compact('accommodationinfo', 'members', 'expenses' , 'sum', 'person'));
+        return View('owner.userdashboard', Compact('accommodationinfo', 'members', 'expenses' , 'sum', 'person', 'categories'));
         
         }else{
             $expenses = null;
             $members = null ;
             $accommodationinfo = null;
             $sum = [];
+            $categories = [];
 
-            return View('owner.userdashboard', Compact('accommodationinfo', 'members', 'expenses','sum'));
+            return View('owner.userdashboard', Compact('accommodationinfo', 'members', 'expenses','sum', 'categories'));
         }
     }
 }
