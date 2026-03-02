@@ -7,6 +7,8 @@ use App\Models\Persons;
 use App\Models\Memberships;
 use App\Models\Invitations;
 use App\Models\Expenses;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Accommodations extends Model
 {

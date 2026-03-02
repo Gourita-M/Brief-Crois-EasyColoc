@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OwnerDashboardController;
+use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\ExpensesController;
 use App\Mail\TestMail;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MembershipController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,9 +24,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/Accommodation', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/Accommodation', [OwnerDashboardController::class, 'index'])->middleware('auth');
 
-Route::get('/Accommodation/user', [DashboardController::class, 'userIndex'])->middleware('auth');
+Route::get('/Accommodation/user', [UserDashboardController::class, 'userIndex'])->middleware('auth');
 
 Route::post('/Create', [AccommodationController::class, 'create'])->name('Create.accommodation');
 
@@ -41,3 +43,7 @@ Route::post('/Approve', [InvitationController::class, 'acceptInvitation'])->name
 Route::Post('/Decline', [InvitationController::class, 'declineInvitation'])->name('decline.invite')->middleware('auth');
 
 Route::POST('/PayExpense', [PaymentController::class, 'payAnExpense'])->name('pay.expense');
+
+Route::POST('/Remove/Member', [MembershipController::class, 'removeMember'])->name('remove.member');
+
+Route::POST('/Leave', [AccommodationController::class, 'leaveAccommodation'])->name('leave.accommodation');

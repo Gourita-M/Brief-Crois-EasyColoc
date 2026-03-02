@@ -29,6 +29,7 @@ class AccommodationController extends Controller
 
         $Accommodationexists = Accommodations::where('persons_id', $person->id)
                                                 ->where('status', 'Active')->exists();
+
         $membershipp = Memberships::Where('persons_id', $person->id)
                                     ->where('is_active', 1)->exists();
 
@@ -78,5 +79,10 @@ class AccommodationController extends Controller
         ]);
 
          return Redirect('/Accommodation/user')->with('success', 'You Have Successfully Joined ');
+    }
+
+    public function leaveAccommodation()
+    {
+        dd('testing');
     }
 }

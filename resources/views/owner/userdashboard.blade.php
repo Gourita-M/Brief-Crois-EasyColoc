@@ -1,9 +1,4 @@
 {{ auth()->user()->name}}
-aaaaaaaaaaaaaaaaaaaaaaa
-<?php print_r($members);
-
-print_r($sum);
-?>
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -117,10 +112,23 @@ print_r($sum);
 
                 <!-- Right Side -->
                 <div class="flex items-center space-x-4">
-                    <button onclick="openModal('createColocModal')" class="hidden sm:inline-flex items-center px-4 py-2 gradient-bg text-white rounded-lg font-medium hover:opacity-90 transition shadow-md">
-                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                        New Home
+                   <form method="POST" action="{{ Route('leave.accommodation') }}">
+                    @csrf
+        
+                    <button 
+                        type="submit"
+                        onclick="return confirm('Are you sure you want to leave this accommodation?')"
+                        class="px-5 py-2 rounded-xl 
+                            bg-red-500 text-white font-semibold
+                            hover:bg-red-600 
+                            transition-all duration-200
+                            shadow-md hover:shadow-lg
+                            hover:scale-105
+                            focus:outline-none focus:ring-2 focus:ring-red-400"
+                    >
+                        Leave Accommodation
                     </button>
+                </form>
 
                     <div class="relative inline-block">
 
@@ -439,7 +447,7 @@ print_r($sum);
                         </span>
 
                         <!-- Remove Button -->
-                        @if($membership->role === 'Owner')
+                       @if($membership->role === 'Member' && $person->role === 'Owner')
                             <form method="POST" action="">
                                 @csrf
                                 @method('DELETE')
@@ -447,9 +455,9 @@ print_r($sum);
                                 <button 
                                     type="submit"
                                     class="w-8 h-8 flex items-center justify-center
-                                           rounded-full bg-red-100 text-red-600
-                                           hover:bg-red-200 hover:text-red-800
-                                           transition-all duration-200"
+                                        rounded-full bg-red-100 text-red-600
+                                        hover:bg-red-200 hover:text-red-800
+                                        transition-all duration-200"
                                 >
                                     ✕
                                 </button>

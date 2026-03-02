@@ -1,5 +1,4 @@
 {{ auth()->user()->name}}
-{{ print_r($expenses) }}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -114,6 +113,23 @@
                 <!-- Right Side -->
                 <div class="flex items-center space-x-4">
                     
+                <form method="POST" action="">
+                    @csrf
+        
+                    <button 
+                        type="submit"
+                        onclick="return confirm('Are you sure you want to leave this accommodation?')"
+                        class="px-5 py-2 rounded-xl 
+                            bg-red-500 text-white font-semibold
+                            hover:bg-red-600 
+                            transition-all duration-200
+                            shadow-md hover:shadow-lg
+                            hover:scale-105
+                            focus:outline-none focus:ring-2 focus:ring-red-400"
+                    >
+                        Leave Accommodation
+                    </button>
+                </form>
                     <div class="relative inline-block">
 
                         <!-- Button -->
@@ -438,77 +454,86 @@
            <div class="bg-gradient-to-br from-indigo-600 to-purple-700 
             text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
 
-    @if($accommodation)
+ @if($accommodation)
 
-        <!-- Header -->
-        <div class="mb-4">
-            <h2 class="text-xl font-bold tracking-wide">
-                {{ $accommodationinfo->name ?? 'Accommodation Members' }}
-            </h2>
-            <p class="text-sm text-indigo-100">
-                Manage members and roles
-            </p>
-        </div>
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="text-xl font-bold tracking-wide">
+            {{ $accommodationinfo->name ?? 'Accommodation Members' }}
+        </h2>
+        <p class="text-sm text-indigo-100">
+            Manage members and roles
+        </p>
+    </div>
 
-        <!-- Members List -->
-        <div class="space-y-3 max-h-64 overflow-y-auto pr-2">
+    <!-- Members List -->
+    <div class="space-y-3 max-h-64 overflow-y-auto pr-2">
 
-            @foreach($members as $membership)
+        @foreach($members as $membership)
 
-                <div class="flex items-center justify-between 
-                            bg-white/10 hover:bg-white/20 
-                            transition-all duration-200
-                            px-4 py-3 rounded-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between 
+                        bg-white/10 hover:bg-white/20 
+                        transition-all duration-200
+                        px-4 py-3 rounded-xl backdrop-blur-sm">
 
-                    <!-- Left: Name -->
-                    <div>
-                        <p class="font-semibold text-white">
-                            {{ $membership->name }}
-                        </p>
-                    </div>
-
-                    <!-- Right: Role + Action -->
-                    <div class="flex items-center gap-4">
-
-                        <!-- Role Badge -->
-                        <span class="
-                            px-3 py-1 text-xs font-semibold rounded-full
-                            {{ $membership->role === 'Owner'
-                                ? 'bg-emerald-100 text-emerald-700'
-                                : 'bg-pink-100 text-pink-600'
-                            }}
-                        ">
-                            {{ $membership->role }}
-                        </span>
-
-                        <!-- Remove Button -->
-                        @if($membership->role !== 'Owner')
-                            <form method="POST" action="">
-                                @csrf
-                                @method('DELETE')
-
-                                <button 
-                                    type="submit"
-                                    class="w-8 h-8 flex items-center justify-center
-                                           rounded-full bg-red-100 text-red-600
-                                           hover:bg-red-200 hover:text-red-800
-                                           transition-all duration-200"
-                                >
-                                    ✕
-                                </button>
-                            </form>
-                        @endif
-
-                    </div>
+                <!-- Left: Name -->
+                <div>
+                    <p class="font-semibold text-white">
+                        {{ $membership->name }}
+                    </p>
                 </div>
 
-            @endforeach
+                <!-- Right: Role + Action -->
+                <div class="flex items-center gap-4">
 
-        </div>
+                    <!-- Role Badge -->
+                    <span class="
+                        px-3 py-1 text-xs font-semibold rounded-full
+                        {{ $membership->role === 'Owner'
+                            ? 'bg-emerald-100 text-emerald-700'
+                            : 'bg-pink-100 text-pink-600'
+                        }}
+                    ">
+                        {{ $membership->role }}
+                    </span>
+                    <!-- Remove Button -->
+                    @if($membership->role === 'Member' && $person->role === 'Owner')
+                        <form method="POST" action="{{ Route('remove.member')}}">
+                            @csrf
+                            
+                            <input name="member_id" value="{{$membership->persons_id}}" type="text" hidden>
+                            <input name="member_name" value="{{ $membership->name }}" type="text" hidden>
 
-    @endif
+                            
+
+                            <button 
+                                type="submit"
+                                class="w-8 h-8 flex items-center justify-center
+                                    rounded-full bg-red-100 text-red-600
+                                    hover:bg-red-600 hover:text-white
+                                    hover:scale-110 
+                                    transition-all duration-200
+                                    shadow-sm hover:shadow-md
+                                    focus:outline-none focus:ring-2 focus:ring-red-400"
+                            >
+                                <!-- Using an SVG X icon for better style -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </form>
+                    @endif
+
+                </div>
+            </div>
+
+        @endforeach
+
+    </div>
+
+@endif
 </div>
-
+                    
     </main>
 
     <!-- Footer -->

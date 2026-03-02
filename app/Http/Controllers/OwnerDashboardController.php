@@ -11,7 +11,7 @@ use App\Models\Memberships;
 use App\Models\Expenses;
 use App\Models\Payments;
 
-class DashboardController extends Controller
+class OwnerDashboardController extends Controller
 {
     public function index()
     {
@@ -22,6 +22,7 @@ class DashboardController extends Controller
         if($accommodation){
 
         $membershipscount = Memberships::where('accommodations_id', $accommodation->id)
+                                        ->where('is_active', 1 )
                                         ->count();
 
         $expenses = $expenses = DB::table('expenses as e')
@@ -67,7 +68,7 @@ class DashboardController extends Controller
             ->get();
             
         
-            return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members','membership'));
+            return View('owner.dashboard', Compact('accommodation','membershipscount', 'expenses', 'sum' ,'members','membership', 'person'));
         
         }else{
 
@@ -82,63 +83,5 @@ class DashboardController extends Controller
 
     }
 
-    public function userIndex()
-    {
-        $person = Persons::where('users_id', auth::user()->id)->first();
-
-        $membership = Memberships::where('persons_id', $person->id)
-                                ->where('role', 'Member')->first();
-       
-        if($membership){
-
-        $members = DB::table('memberships as m')
-        ->leftJoin('persons as p', 'm.persons_id', '=', 'p.id')
-        ->leftJoin('users as u', 'p.users_id', '=', 'u.id')
-        ->where('m.accommodations_id', $membership->accommodations_id)
-        ->select(
-            'm.id as membership_id',
-            'p.role as role',
-            'm.persons_id',
-            'p.users_id as person_users_id',
-            'u.id as user_id',
-            'u.name'
-        )
-        ->get();
-
-        $accommodationinfo = Accommodations::where('id', $membership->accommodations_id)->first();
-
-        $expenses = DB::table('expenses as e')
-            ->join('persons as p','p.id','=','e.persons_id')
-            ->join('users as u', 'p.users_id','=','u.id')
-            ->select('e.*','u.name')
-            ->where('e.accommodations_id', $accommodationinfo->id)
-            ->get();
-
-        $sum = DB::table('payments as p')
-            ->join('expenses as e', 'p.expenses_id', '=', 'e.id')
-            ->join('persons as member', 'p.persons_id', '=', 'member.id')
-            ->join('users as member_user', 'member.users_id', '=', 'member_user.id')
-            ->join('persons as creator', 'e.persons_id', '=', 'creator.id')
-            ->join('users as creator_user', 'creator.users_id', '=', 'creator_user.id')
-            ->where('p.status', 0)
-            ->where('e.accommodations_id', $accommodationinfo->id)
-            ->select(
-                'p.id as payment_id',
-                'member_user.id as zz',
-                'member_user.name as member_name',
-                'e.title as expense_title',
-                'creator_user.name as expense_creator',
-                'p.amount as total_owed'
-            )
-            ->get();
-
-        return View('owner.userdashboard', Compact('accommodationinfo', 'members', 'expenses' , 'sum'));
-        
-        }else{
-            $expenses = null;
-            $members = null ;
-            $accommodationinfo = null;
-            return View('owner.userdashboard', Compact('accommodationinfo', 'members', 'expenses'));
-        }
-    }
+    
 }

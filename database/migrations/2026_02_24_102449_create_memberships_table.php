@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
             $table->string('role');
-            $table->integer('is_active');
+            $table->boolean('is_active');
              $table->timestamp('left_at')->nullable();;
             $table->foreignId('persons_id')
             ->constrained()->cascadeOnDelete();
