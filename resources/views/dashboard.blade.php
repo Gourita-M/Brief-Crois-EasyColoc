@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50">
     <nav class="glass-effect w-full z-50 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -181,141 +183,77 @@
                     </thead>
 
                     <tbody class="divide-y divide-gray-100">
-
+                        @foreach($users as $userz)
                         <!-- User Row Example 1 -->
                         <tr class="hover:bg-gray-50 transition">
 
                             <!-- User Info -->
                             <td class="px-6 py-4 flex items-center space-x-4">
                                 <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold">
-                                    A
+                                    {{ strtoupper(substr($userz->name, 0, 1)) }}
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-gray-900">Alice Johnson</p>
-                                    <p class="text-xs text-gray-500">ID: 1</p>
+                                    <p class="font-semibold text-gray-900">{{$userz->name}}</p>
+                                    <p class="text-xs text-gray-500">ID: {{$userz->id}}</p>
                                 </div>
                             </td>
 
                             <!-- Email -->
-                            <td class="px-6 py-4 text-gray-700">alice@example.com</td>
+                            <td class="px-6 py-4 text-gray-700">{{$userz->email}}</td>
 
                             <!-- Status -->
+                            @if(!$userz->is_banned)
                             <td class="px-6 py-4">
                                 <span class="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full font-medium">
                                     Active
                                 </span>
                             </td>
-
+                            @else
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 text-sm bg-red-100 text-red-600 rounded-full font-medium">
+                                    Banned
+                                </span>
+                            </td>
+                            @endif
                             <!-- Action -->
                             <td class="px-6 py-4 text-center">
-                                <button class="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition shadow-md">
-                                    Ban
-                                </button>
+                                @if(!$userz->is_banned)
+
+                                <!-- BAN FORM -->
+                                <form action="{{ Route('ban.user') }}" method="POST">
+                                    @csrf
+
+                                    <input name="user_id" hidden value="{{$userz->id}}" type="text">
+                                    
+                                    <button
+                                        type="submit"
+                                        class="px-4 py-2 bg-red-500 text-white rounded-xl 
+                                        hover:bg-red-600 transition shadow-md">
+                                        Ban
+                                    </button>
+                                </form>
+
+                                @else
+
+                                <!-- UNBAN FORM -->
+                                <form action="{{ Route('unban.user') }}" method="POST">
+                                    @csrf
+
+                                     <input name="user_id" hidden value="{{$userz->id}}" type="text">
+                                    
+                                    <button
+                                        type="submit"
+                                        class="px-4 py-2 bg-green-500 text-white rounded-xl 
+                                        hover:bg-green-600 transition shadow-md">
+                                        Unban
+                                    </button>
+                                </form>
+
+                                @endif
                             </td>
 
                         </tr>
-
-                        <!-- User Row Example 2 -->
-                        <tr class="hover:bg-gray-50 transition">
-
-                            <td class="px-6 py-4 flex items-center space-x-4">
-                                <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold">
-                                    B
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Bob Smith</p>
-                                    <p class="text-xs text-gray-500">ID: 2</p>
-                                </div>
-                            </td>
-
-                            <td class="px-6 py-4 text-gray-700">bob@example.com</td>
-
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 text-sm bg-red-100 text-red-600 rounded-full font-medium">
-                                    Banned
-                                </span>
-                            </td>
-
-                            <td class="px-6 py-4 text-center">
-                                <button class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition shadow-md">
-                                    Unban
-                                </button>
-                            </td>
-
-                        </tr>
-
-                        <!-- User Row Example 3 -->
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 flex items-center space-x-4">
-                                <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold">
-                                    C
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Charlie Lee</p>
-                                    <p class="text-xs text-gray-500">ID: 3</p>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-700">charlie@example.com</td>
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full font-medium">
-                                    Active
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                <button class="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition shadow-md">
-                                    Ban
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- User Row Example 4 -->
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 flex items-center space-x-4">
-                                <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold">
-                                    D
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Diana Prince</p>
-                                    <p class="text-xs text-gray-500">ID: 4</p>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-700">diana@example.com</td>
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full font-medium">
-                                    Active
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                <button class="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition shadow-md">
-                                    Ban
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- User Row Example 5 -->
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 flex items-center space-x-4">
-                                <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold">
-                                    E
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-900">Ethan Hunt</p>
-                                    <p class="text-xs text-gray-500">ID: 5</p>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-700">ethan@example.com</td>
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 text-sm bg-red-100 text-red-600 rounded-full font-medium">
-                                    Banned
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                <button class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition shadow-md">
-                                    Unban
-                                </button>
-                            </td>
-                        </tr>
-
+                        @endforeach
                     </tbody>
 
                 </table>
@@ -323,9 +261,15 @@
 
         </div>
     </div>
-<script>
 
-         // Initialize Lucide icons
+    @if(session('success'))
+  <div id="success-popup" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 opacity-0 transition-opacity duration-500">
+    ✅  {{session('success')}}
+  </div>
+  @endif
+
+    <script>
+        // Initialize Lucide icons
         lucide.createIcons();
 
         // Dropdown toggle function
@@ -376,6 +320,21 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
+            const popup = document.getElementById('success-popup');
+
+            // Show the popup
+            popup.classList.remove('opacity-0');
+            popup.classList.add('opacity-100');
+
+            // Hide after 10 seconds
+            setTimeout(() => {
+                popup.classList.remove('opacity-100');
+                popup.classList.add('opacity-0');
+            }, 10000);
+        });
+
+
+ window.addEventListener('DOMContentLoaded', () => {
       const popup = document.getElementById('success-popup');
 
       // Show the popup
@@ -388,6 +347,7 @@
         popup.classList.add('opacity-0');
       }, 10000);
     });
-</script>
+    </script>
 </body>
+
 </html>
