@@ -1,5 +1,4 @@
 {{ auth()->user()->name}}
-{{$categories}}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -325,7 +324,7 @@
                     <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">Global</span>
                 </div>
                 <p class="text-sm text-slate-500 mb-1">My Reputation Score</p>
-                <p class="text-2xl font-bold text-slate-900">0</p>
+                <p class="text-2xl font-bold text-slate-900">{{auth()->user()->reputation_score}}</p>
 
             </div>
 
@@ -334,11 +333,14 @@
                     <div class="p-3 bg-violet-100 rounded-xl">
                         <i data-lucide="shopping-cart" class="w-6 h-6 text-violet-600"></i>
                     </div>
-                    <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">February</span>
-                </div>
-                <p class="text-sm text-slate-500 mb-1">Total Expenses</p>
-                <p class="text-2xl font-bold text-slate-900">$0.00</p>
 
+                </div>
+                <p class="text-sm text-slate-500 mb-1">Balance</p>
+                 @if($balance > 0)
+                <p class="text-2xl font-bold text-red-600">-{{$balance}}DH</p>
+                @else
+                 <p class="text-2xl font-bold text-slate-900">{{$balance}}DH</p>
+                @endif
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
@@ -349,8 +351,7 @@
                     <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">Total</span>
                 </div>
                 <p class="text-sm text-slate-500 mb-1">Active Members</p>
-                <p class="text-2xl font-bold text-slate-900">{{$membershipscount}}</p>
-
+                 <p class="text-2xl font-bold text-slate-900">{{$membershipscount}}</p>
             </div>
 
         </div>
@@ -371,7 +372,7 @@
 
                 <p class="text-sm text-slate-500 mb-4">Members Balances</p>
 
-                <div class="space-y-4">
+                <div class="space-y-4 max-h-[620px] overflow-y-auto">
 
                     <!-- Member Owes -->
                     @foreach($sum as $sam)
@@ -410,73 +411,105 @@
 
             </div>
             <!-- Recent Expenses -->
-            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden card-hover">
-                <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 bg-indigo-100 rounded-lg">
-                            <i data-lucide="receipt" class="w-5 h-5 text-indigo-600"></i>
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-lg">Recent Expenses</h3>
-                    </div>
+          <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden card-hover">
 
-                </div>
-
-                @if($expenses)
-
-                <div class="space-y-3">
-                    @foreach($expenses as $expense)
-                    <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-slate-100">
-
-                        <div>
-                            <p class="font-medium text-slate-900">
-                                {{ $expense->title }}
-                            </p>
-                            <p class="text-sm text-slate-500">
-                                Added by {{ $expense->name }}
-                            </p>
-                        </div>
-
-                        <div class="text-right">
-                            <p class="font-semibold text-indigo-600">
-                                {{ number_format($expense->amount, 2) }} MAD
-                            </p>
-                        </div>
-
-                    </div>
-                    @endforeach
-                </div>
-
-                <!-- ✅ Added Button -->
-                <div class="text-center mt-6">
-                    <button onclick="openModal('expenseModal')"
-                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-md">
-                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                        Add More Expenses
-                    </button>
-                </div>
-
-                @else
-
-                <!-- Your Empty State -->
-                <div class="p-12 text-center">
-                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 float-animation">
-                        <i data-lucide="receipt" class="w-10 h-10 text-slate-400"></i>
-                    </div>
-                    <h4 class="text-lg font-medium text-slate-900 mb-2">No recent expenses</h4>
-                    <p class="text-slate-500 mb-6 max-w-sm mx-auto">
-                        Start adding expenses to see history and statistics here.
-                    </p>
-                    @if($expenses)
-                    <button onclick="openModal('expenseModal')"
-                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-md">
-                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                        Add Expense
-                    </button>
-                    @endif
-                </div>
-
-                @endif
+    <!-- Header -->
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-indigo-100 rounded-lg">
+                <i data-lucide="receipt" class="w-5 h-5 text-indigo-600"></i>
             </div>
+            <h3 class="font-bold text-slate-900 text-lg">Recent Expenses</h3>
+        </div>
+
+        <!-- ✅ Monthly Filter -->
+        <form method="GET">
+            <select name="month"
+                onchange="this.form.submit()"
+                class="px-3 py-2 text-sm border border-slate-200 rounded-lg 
+                       focus:ring-2 focus:ring-indigo-500 focus:outline-none 
+                       bg-white hover:border-indigo-400 transition">
+                <option value="">All Months</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+        </form>
+    </div>
+
+    @if($expenses)
+
+    <!-- ✅ Scroll container -->
+    <div class="p-6">
+        <div class="space-y-3 max-h-[620px] overflow-y-auto pr-2">
+
+            @foreach($expenses as $expense)
+            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+
+                <div>
+                    <p class="font-medium text-slate-900">
+                        {{ $expense->title }}
+                    </p>
+                    <p class="text-sm text-slate-500">
+                        Added by {{ $expense->name }}
+                    </p>
+                </div>
+
+                <div class="text-right">
+                    <p class="font-semibold text-indigo-600">
+                        {{ number_format($expense->amount, 2) }} MAD
+                    </p>
+                </div>
+
+            </div>
+            @endforeach
+
+        </div>
+
+        <!-- Add Button -->
+        <div class="text-center mt-6">
+            <button onclick="openModal('expenseModal')"
+                class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white 
+                       rounded-lg hover:bg-indigo-700 transition shadow-md">
+                <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+                Add More Expenses
+            </button>
+        </div>
+    </div>
+
+    @else
+
+    <!-- Empty State -->
+    <div class="p-12 text-center">
+        <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 float-animation">
+            <i data-lucide="receipt" class="w-10 h-10 text-slate-400"></i>
+        </div>
+        <h4 class="text-lg font-medium text-slate-900 mb-2">No recent expenses</h4>
+        <p class="text-slate-500 mb-6 max-w-sm mx-auto">
+            Start adding expenses to see history and statistics here.
+        </p>
+
+        @if($expenses)
+        <button onclick="openModal('expenseModal')"
+            class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white 
+                   rounded-lg hover:bg-indigo-700 transition shadow-md">
+            <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+            Add Expense
+        </button>
+        @endif
+    </div>
+
+    @endif
+</div>
 
             <div class="bg-gradient-to-br from-indigo-600 to-purple-700 
             text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">

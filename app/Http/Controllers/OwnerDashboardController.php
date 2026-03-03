@@ -21,9 +21,10 @@ class OwnerDashboardController extends Controller
         $accommodation = Accommodations::where('members_id', $person->id)
             ->where('status', 'Active')->first();
 
-        $categories = Categories::Where('accommodations_id', $accommodation->id)->get();
-
+        
         if ($accommodation) {
+
+        $categories = Categories::Where('accommodations_id', $accommodation->id)->get();
 
             $membershipscount = Memberships::where('accommodations_id', $accommodation->id)
                 ->where('is_active', 1)
@@ -71,8 +72,12 @@ class OwnerDashboardController extends Controller
                 )
                 ->get();
 
+            $balance = DB::table('payments')
+                        ->where('members_id', $person->id)
+                        ->where('status', false)
+                        ->sum('amount');
 
-            return View('owner.dashboard', Compact('accommodation', 'membershipscount', 'expenses', 'sum', 'members', 'membership', 'person', 'categories'));
+            return View('owner.dashboard', Compact('accommodation', 'membershipscount', 'expenses', 'sum', 'members', 'membership', 'person', 'categories', 'balance'));
         } else {
 
             $expenses = false;
@@ -80,8 +85,10 @@ class OwnerDashboardController extends Controller
             $sum = [];
             $members = null;
             $membership = [];
+            $balance = 0 ;
+            $categories = null;
 
-            return View('owner.dashboard', Compact('accommodation', 'membershipscount', 'expenses', 'sum', 'members', 'membership'));
+            return View('owner.dashboard', Compact('accommodation', 'membershipscount', 'expenses', 'sum', 'members', 'membership', 'balance', 'categories'));
         }
     }
 }

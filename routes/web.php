@@ -21,7 +21,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->name('dashboard')->middleware('admin');
 });
 
 Route::get('/Accommodation', [OwnerDashboardController::class, 'index'])->middleware('auth');
