@@ -156,11 +156,6 @@
     <!-- Content -->
     <div class="max-w-7xl mx-auto px-6 py-10">
 
-        <!-- Success Message -->
-        <div class="mb-6 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg">
-            User status updated successfully.
-        </div>
-
         <!-- Users Table Card -->
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
 

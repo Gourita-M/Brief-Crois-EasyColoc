@@ -161,7 +161,15 @@
                                 <i data-lucide="user" class="w-4 h-4 mr-3 text-slate-400"></i>
                                 Profile
                             </a>
-
+                            @if(auth()->user()->id === 1)
+                            <a href="/dashboard"
+                                class="flex items-center px-4 py-2.5 text-sm 
+                  text-slate-700 hover:bg-slate-100 
+                  transition-all duration-200 rounded-lg mx-2">
+                                <i data-lucide="user" class="w-4 h-4 mr-3 text-slate-400"></i>
+                                DashBoard
+                            </a>
+                            @endif
                             <!-- Logout -->
                             <div class="mt-1 pt-1 border-t border-slate-100">
                                 <form method="POST" action="{{ route('logout') }}">

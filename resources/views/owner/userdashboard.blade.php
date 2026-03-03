@@ -1,5 +1,3 @@
-{{ auth()->user()->name}}
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
